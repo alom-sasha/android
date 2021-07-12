@@ -4,15 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FBD14B"
     tools:context=".login">
 
     <View
-        android:id="@+id/canvas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#FBD14B"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="16dp" />
+        android:id="@+id/view3"
+        android:layout_width="350dp"
+        android:layout_height="2dp"
+        android:background="#818181"
+        android:foreground="#818181"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.663" />
 
     <Button
         android:id="@+id/facebook_login"
@@ -22,8 +28,11 @@
         android:text="login with facebook"
         android:textSize="15dp"
         app:backgroundTint="#3B5998"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="509dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.736" />
 
     <Button
         android:id="@+id/naver_login"
@@ -32,8 +41,11 @@
         android:gravity="center"
         android:text="login with Naver"
         app:backgroundTint="#2DB400"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="561dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.822" />
 
     <Button
         android:id="@+id/kakao_login"
@@ -42,18 +54,24 @@
         android:gravity="center"
         android:text="login with Kakaotalk"
         app:backgroundTint="#562400"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="613dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.904"/>
 
     <Button
         android:id="@+id/btn_signin"
         android:layout_width="325dp"
         android:layout_height="43dp"
         android:text="로그인"
-        app:backgroundTint="#FFFFFF"
         android:textColor="#000000"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="343dp" />
+        app:backgroundTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.473" />
 
     <Button
         android:id="@+id/btn_signup"
@@ -62,23 +80,22 @@
         android:text="회원가입"
         android:textColor="#000000"
         app:backgroundTint="#FFFFFF"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="395dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.558" />
 
     <TextView
         android:id="@+id/search_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="아이디/비밀번호 찾기>"
-        tools:layout_editor_absoluteX="139dp"
-        tools:layout_editor_absoluteY="460dp" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.63" />
 
-    <View
-        android:layout_width="350dp"
-        android:layout_height="2dp"
-        android:background="#818181"
-        android:foreground="#818181"
-        tools:layout_editor_absoluteX="30dp"
-        tools:layout_editor_absoluteY="489dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
