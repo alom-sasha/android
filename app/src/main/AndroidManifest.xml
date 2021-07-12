@@ -25,4 +25,9 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
+    # sms기능을 위해 추가
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 </manifest>
