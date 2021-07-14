@@ -15,7 +15,8 @@
         android:theme="@style/Theme.Sasha"
         android:usesCleartextTraffic="true">
         <activity android:name=".map"></activity>
-        <activity android:name=".login">
+        <activity android:name=".login"></activity>
+        <activity android:name=".report">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,9 +27,6 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="789ba8639ec056e6c469d8b75a9367b7" />
     </application>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
-
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
     # sms기능을 위해 추가
     <uses-permission android:name="android.permission.RECEIVE_SMS" />

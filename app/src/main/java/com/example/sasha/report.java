@@ -19,7 +19,7 @@ public class report extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
 
-        final String phoneNumber = "010-5444-7857";
+        final String phoneNumber = "010-9154-1706";
         final String message = "신고합니다 ~~~~"; // 현제 위치등 정보를 문자로 신고
         Button button_report = (Button)findViewById(R.id.button_report);
         button_report.setOnLongClickListener(new View.OnLongClickListener() {
