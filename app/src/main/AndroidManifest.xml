@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sasha"
         android:usesCleartextTraffic="true">
-        <activity android:name=".map"></activity>
+        <activity android:name=".report"></activity>
         <activity android:name=".login"></activity>
-        <activity android:name=".report">
+        <activity android:name=".map">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,6 +26,10 @@
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="789ba8639ec056e6c469d8b75a9367b7" />
+
+        <meta-data
+            android:name="com.naver.maps.map.CLIENT_ID"
+            android:value="iefo6x2oyz" />
     </application>
 
     # sms기능을 위해 추가

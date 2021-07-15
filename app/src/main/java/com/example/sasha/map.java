@@ -13,15 +13,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
-import net.daum.mf.map.api.MapView;
+import com.naver.maps.map.MapView;
+import com.naver.maps.map.NaverMapSdk;
+
+//import net.daum.mf.map.api.MapView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class map extends AppCompatActivity {
 
-
+    private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +33,17 @@ public class map extends AppCompatActivity {
         setContentView(R.layout.activity_map);
         getHashKey();
 
-        MapView mapView = new MapView(this);
+//        MapView mapView = new MapView(this);
+//
+//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+//        mapViewContainer.addView(mapView);
+//        NaverMapSdk.getInstance(this).setClient(
+//                new NaverMapSdk.NaverCloudPlatformClient("iefo6x2oyz"));
 
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
+
+        mapView = findViewById(R.id.map_view);
+        mapView.onCreate(savedInstanceState);
+
 
 
 
@@ -46,6 +57,7 @@ public class map extends AppCompatActivity {
         });
 
     }
+
 
     private void getHashKey(){
         PackageInfo packageInfo = null;
