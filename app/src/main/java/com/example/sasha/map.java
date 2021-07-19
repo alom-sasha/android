@@ -32,21 +32,14 @@ public class map extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         getHashKey();
-
 //        MapView mapView = new MapView(this);
 //
 //        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
 //        mapViewContainer.addView(mapView);
 //        NaverMapSdk.getInstance(this).setClient(
 //                new NaverMapSdk.NaverCloudPlatformClient("iefo6x2oyz"));
-
-
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
-
-
-
-
         Button btn_tmp = findViewById(R.id.btn_tmp);
         btn_tmp.setOnClickListener(new View.OnClickListener() {
             @Override
