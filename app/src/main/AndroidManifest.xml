@@ -4,6 +4,14 @@
     <!-- 인터넷, 위치 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    # sms기능을 위해 추가
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -32,9 +40,6 @@
             android:value="iefo6x2oyz" />
     </application>
 
-    # sms기능을 위해 추가
-    <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.SEND_SMS" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
 
 </manifest>
