@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         if (fragment == null) {
             if (id == R.id.ic_map) {
                 fragment = new MapPageFragment();
-
             }
             else if (id == R.id.ic_alert){
 

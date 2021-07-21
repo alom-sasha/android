@@ -10,8 +10,10 @@
         android:text="test login"
         />
 
-    <com.naver.maps.map.MapView
-        android:id="@+id/map_view"
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:name="com.naver.maps.map.MapFragment"/>
+
 </RelativeLayout>
