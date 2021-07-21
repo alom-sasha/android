@@ -5,9 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FBD14B"
     android:orientation="vertical"
-    tools:context=".CommunityActivity">
+    tools:context=".MainActivity">
 
 
     <RelativeLayout
@@ -21,24 +20,24 @@
             <include layout="@layout/layout_top_tabs"/>
         </RelativeLayout>
         <!--body-->
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/relLayout2"
+
+        <FrameLayout
+            android:id="@+id/content_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/relLayout1">
+            android:layout_below="@+id/relLayout1"
+            android:layout_above="@+id/relLayout3"
+            />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="community"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
         <!--bottom navigation bar-->
-        <include layout="@layout/layout_bottom_navigation_view"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/relLayout3"
+            android:layout_alignParentBottom="true">
+            <include layout="@layout/layout_bottom_navigation_view"/>
+        </RelativeLayout>
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

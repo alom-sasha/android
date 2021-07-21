@@ -4,14 +4,11 @@
     <!-- 인터넷, 위치 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    # sms기능을 위해 추가
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -22,27 +19,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sasha"
         android:usesCleartextTraffic="true">
-        <!-- 네이티브 앱 키 추가 -->
+        <activity android:name=".LoginActivity"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- 네이티브 앱 키 추가 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="789ba8639ec056e6c469d8b75a9367b7" />
-
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="iefo6x2oyz" />
-        <activity android:name=".MapActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".AlertActivity"></activity>
-        <activity android:name=".CommunityActivity"></activity>
-        <activity android:name=".LogActivity"></activity>
-        <activity android:name=".SettingsActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
     </application>
-
-
 
 </manifest>
