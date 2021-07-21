@@ -1,42 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapActivity">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <RelativeLayout
+
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/btn_tmp"
+        android:text="test login"
+        />
+
+    <fragment
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <!--top toolbar-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/relLayout1">
-            <include layout="@layout/layout_top_tabs"/>
-        </RelativeLayout>
-        <!--body-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relLayout1">
-            <Button
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:id="@+id/btn_tmp"
-                android:text="test login"
-                />
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        android:name="com.naver.maps.map.MapFragment"/>
 
-            <com.naver.maps.map.MapView
-                android:id="@+id/map_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </RelativeLayout>
 
-        <!--bottom navigation bar-->
-        <include layout="@layout/layout_bottom_navigation_view"/>
-    </RelativeLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</RelativeLayout>

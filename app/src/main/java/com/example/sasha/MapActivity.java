@@ -1,5 +1,7 @@
 package com.example.sasha;
 
+
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -7,89 +9,88 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentManager;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.LocationTrackingMode;
+import com.naver.maps.map.MapFragment;
+import com.naver.maps.map.MapView;
+import com.naver.maps.map.NaverMap;
+import com.naver.maps.map.NaverMapSdk;
+import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.util.FusedLocationSource;
 
-import com.example.sasha.Utils.BottomNavigationViewHelper;
+//import net.daum.mf.map.api.MapView;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import com.naver.maps.map.MapView;
-import com.naver.maps.map.NaverMapSdk;
 
-public class MapActivity extends AppCompatActivity {//main activity
-
-    private static final String TAG="MapActivity";
-    private static final int ACTIVITY_NUM=0;
-    private MapView mapView;
+public class map extends AppCompatActivity implements OnMapReadyCallback {
+    private static final String TAG = "map";
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private static final String[] PERMISSIONS = {
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+    };
+    private FusedLocationSource mLocationSource;
+    private NaverMap mNaverMap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-        Log.d(TAG,"onCreate : starting.");
 
-        setupBottomNavigationView();
-        getHashKey();
-        //        MapView mapView = new MapView(this);
-//
-//        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-//        mapViewContainer.addView(mapView);
-//        NaverMapSdk.getInstance(this).setClient(
-//                new NaverMapSdk.NaverCloudPlatformClient("iefo6x2oyz"));
-        mapView = findViewById(R.id.map_view);
-        mapView.onCreate(savedInstanceState);
         Button btn_tmp = findViewById(R.id.btn_tmp);
         btn_tmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), login.class);
                 startActivity(intent);
             }
         });
-    }
-    //BottomNavigationView setup
-    private void setupBottomNavigationView(){
-        Log.d(TAG,"setupBottomNavigationView: setting up BottomNavigationView.");
-        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottomNavViewBar);
-        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
-        BottomNavigationViewHelper.enableNavigation(com.example.sasha.MapActivity.this,bottomNavigationView);
-        Menu menu=bottomNavigationView.getMenu();
-        MenuItem menuItem=menu.getItem(ACTIVITY_NUM);
-        menuItem.setChecked(true);
+
+        FragmentManager fm = getSupportFragmentManager();
+        MapFragment mapFragment = (MapFragment)fm.findFragmentById(R.id.map);
+        if(mapFragment == null) {
+            mapFragment = MapFragment.newInstance();
+            fm.beginTransaction().add(R.id.map, mapFragment).commit();
+        }
+
+        mapFragment.getMapAsync(this);
+
+        mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
-        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
-        finish();
+    public void onMapReady(@NonNull NaverMap naverMap) {
+        Log.d(TAG, "OnMapReady");
+
+        Marker marker = new Marker();
+        marker.setPosition(new LatLng(37.5670135,126.9783740));
+        marker.setMap(naverMap);
+
+        mNaverMap = naverMap;
+        mNaverMap.setLocationSource(mLocationSource);
+
+        ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
     }
 
-    //map api
-    private void getHashKey(){
-        PackageInfo packageInfo = null;
-        try {
-            packageInfo = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        if (packageInfo == null)
-            Log.e("KeyHash", "KeyHash:null");
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        for (Signature signature : packageInfo.signatures) {
-            try {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            } catch (NoSuchAlgorithmException e) {
-                Log.e("KeyHash", "Unable to get MessageDigest. signature=" + signature, e);
+        if(requestCode == PERMISSION_REQUEST_CODE){
+            if(grantResults.length > 0 &&
+                    grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
             }
         }
     }

@@ -23,7 +23,7 @@
     <Button
         android:id="@+id/facebook_login"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="login with facebook"
         android:textSize="15dp"
@@ -33,12 +33,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.736" />
+        app:layout_constraintVertical_bias="0.735" />
 
     <Button
         android:id="@+id/naver_login"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="login with Naver"
         app:backgroundTint="#2DB400"
@@ -47,12 +47,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.822" />
+        app:layout_constraintVertical_bias="0.815" />
 
     <Button
         android:id="@+id/kakao_login"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:gravity="center"
         android:text="login with Kakaotalk"
         app:backgroundTint="#562400"
@@ -61,12 +61,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.904"/>
+        app:layout_constraintVertical_bias="0.895"/>
 
     <Button
         android:id="@+id/btn_signin"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:text="로그인"
         android:textColor="#000000"
         app:backgroundTint="#E0DCDC"
@@ -80,7 +80,7 @@
     <Button
         android:id="@+id/btn_signup"
         android:layout_width="325dp"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
         android:text="회원가입"
         android:textColor="#000000"
         app:backgroundTint="#E0DCDC"
@@ -105,11 +105,12 @@
     <EditText
         android:layout_width="325dp"
         android:layout_height="43dp"
-        android:background="#B3FFFFFF"
+        android:background="@drawable/edittext_login_custom"
         android:drawableLeft="@drawable/image_id"
-        android:hint="   ID"
+        android:hint="ID"
+        android:drawablePadding="15dp"
+        android:paddingLeft="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintCircleRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -118,9 +119,11 @@
     <EditText
         android:layout_width="325dp"
         android:layout_height="43dp"
-        android:background="#B3FFFFFF"
+        android:background="@drawable/edittext_login_custom"
         android:drawableLeft="@drawable/image_password"
-        android:hint="   PASSWORD"
+        android:hint="PASSWORD"
+        android:drawablePadding="15dp"
+        android:paddingLeft="15dp"
         android:inputType="textPassword"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
