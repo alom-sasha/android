@@ -1,6 +1,5 @@
 package com.example.sasha;
 
-
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -8,31 +7,37 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
-import com.naver.maps.map.MapView;
-import com.naver.maps.map.NaverMapSdk;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-//import net.daum.mf.map.api.MapView;
+import com.example.sasha.Utils.BottomNavigationViewHelper;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import com.naver.maps.map.MapView;
+import com.naver.maps.map.NaverMapSdk;
 
-public class map extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity {//main activity
 
+    private static final String TAG="MapActivity";
+    private static final int ACTIVITY_NUM=0;
     private MapView mapView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+        Log.d(TAG,"onCreate : starting.");
+
+        setupBottomNavigationView();
         getHashKey();
-//        MapView mapView = new MapView(this);
+        //        MapView mapView = new MapView(this);
 //
 //        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
 //        mapViewContainer.addView(mapView);
@@ -44,14 +49,30 @@ public class map extends AppCompatActivity {
         btn_tmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), login.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
-
+    }
+    //BottomNavigationView setup
+    private void setupBottomNavigationView(){
+        Log.d(TAG,"setupBottomNavigationView: setting up BottomNavigationView.");
+        BottomNavigationView bottomNavigationView=(BottomNavigationView)findViewById(R.id.bottomNavViewBar);
+        BottomNavigationViewHelper.disableShiftMode(bottomNavigationView);
+        BottomNavigationViewHelper.enableNavigation(com.example.sasha.MapActivity.this,bottomNavigationView);
+        Menu menu=bottomNavigationView.getMenu();
+        MenuItem menuItem=menu.getItem(ACTIVITY_NUM);
+        menuItem.setChecked(true);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.anim.not_move_activity,R.anim.not_move_activity);
+        finish();
+    }
 
+    //map api
     private void getHashKey(){
         PackageInfo packageInfo = null;
         try {
@@ -72,5 +93,4 @@ public class map extends AppCompatActivity {
             }
         }
     }
-
 }

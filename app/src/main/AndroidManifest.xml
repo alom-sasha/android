@@ -14,15 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sasha"
         android:usesCleartextTraffic="true">
-        <activity android:name=".report"></activity>
-        <activity android:name=".login"></activity>
-        <activity android:name=".map">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- 네이티브 앱 키 추가 -->
+        <!-- 네이티브 앱 키 추가 -->
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="789ba8639ec056e6c469d8b75a9367b7" />
@@ -30,6 +22,17 @@
         <meta-data
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="iefo6x2oyz" />
+        <activity android:name=".MapActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".AlertActivity"></activity>
+        <activity android:name=".CommunityActivity"></activity>
+        <activity android:name=".LogActivity"></activity>
+        <activity android:name=".SettingsActivity"></activity>
+        <activity android:name=".LoginActivity"></activity>
     </application>
 
     # sms기능을 위해 추가
