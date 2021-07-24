@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.naver.maps.map.MapView;
 
 public class AlertPageFragment extends Fragment {
 
