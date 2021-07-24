@@ -1,41 +1,41 @@
 {
   "project_info": {
-    "project_number": "489828546485",
-    "project_id": "connection-11b31",
-    "storage_bucket": "connection-11b31.appspot.com"
+    "project_number": "803568254020",
+    "project_id": "sasha-db",
+    "storage_bucket": "sasha-db.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:489828546485:android:0a82006c49bfbde74d0bfc",
+        "mobilesdk_app_id": "1:803568254020:android:48ad2f54b89c4dc4f2d011",
         "android_client_info": {
           "package_name": "com.example.sasha"
         }
       },
       "oauth_client": [
         {
-          "client_id": "489828546485-te9v19ub9gfs3olaqmrabcad77sc1l4v.apps.googleusercontent.com",
+          "client_id": "803568254020-gr14pfla3rdaa3q1q7rc0sgnqdh4dev4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.sasha",
-            "certificate_hash": "0aa6b24bf89646d310142c7d90237397f29022e8"
+            "certificate_hash": "7e3a0be642a7c58a70f8988ee7bb5f27abba58ff"
           }
         },
         {
-          "client_id": "489828546485-u9llqmb6sap19prd4r51umdir6np4s71.apps.googleusercontent.com",
+          "client_id": "803568254020-vil9foslnvdm55jglf82r5fhke8njtf3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAgox6vFAOcs4xeHQ3DZuW5M8iLhh9uEq8"
+          "current_key": "AIzaSyCooMavwaYFnDirze_9EnUp5AgzI4EzIVk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "489828546485-u9llqmb6sap19prd4r51umdir6np4s71.apps.googleusercontent.com",
+              "client_id": "803568254020-vil9foslnvdm55jglf82r5fhke8njtf3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
