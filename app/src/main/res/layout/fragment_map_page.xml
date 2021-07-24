@@ -3,12 +3,6 @@
     android:layout_height="match_parent"
     android:layout_below="@+id/relLayout1"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <Button
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/btn_tmp"
-        android:text="test login"
-        />
 
     <fragment
         android:layout_width="match_parent"
