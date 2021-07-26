@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -33,6 +34,7 @@ import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
+import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.util.FusedLocationSource;
 
@@ -40,6 +42,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -57,6 +60,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private NaverMap mNaverMap;
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<LatLng> latlngs_light = new ArrayList<>();
+    ArrayList<Marker> markers_light = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,25 +91,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mapFragment.getMapAsync(this);
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
-
-
-        Log.d("start db" , "db start");
-        db.collection("light")
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                Log.d(TAG, document.getId() + " => " + document.getData());
-                            }
-                        } else {
-                            Log.w(TAG, "Error getting documents.", task.getException());
-                        }
-                    }
-                });
-
-        Log.d("finish db" , "finish start");
 
     }
 
@@ -154,13 +140,62 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d(TAG, "OnMapReady");
 
-        Marker marker = new Marker();
-        marker.setPosition(new LatLng(37.5670135, 126.9783740));
-        marker.setMap(naverMap);
-
         mNaverMap = naverMap;
+
+        Log.d("start db" , "db start");
+        db.collection("light")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cur = new HashMap<>();
+                                cur = document.getData();
+                                double latitude = (Double)cur.get("latitude");
+                                double longitude = (Double)cur.get("longitude");
+
+                                Marker marker = new Marker();
+                                marker.setPosition(new LatLng(latitude, longitude));
+                                //marker.setMap(naverMap);
+                                markers_light.add(marker);
+                                latlngs_light.add(new LatLng(latitude, longitude));
+                                //Log.d(document.getId(),(Double)cur.get("latitude") + "   " + (Double)cur.get("longitude"));
+
+                                Log.d(TAG, document.getId() + " => " + latitude + "   "  + longitude+ " "+String.valueOf(latlngs_light.size()) );
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        for (Marker marker : markers_light) {
+                            marker.setMap(naverMap);
+                        }
+                    }
+                });
+
+        //iterator 사용
+
+
+
+
+        //현재 위치 추적
+
         mNaverMap.setLocationSource(mLocationSource);
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
+
+        //UI Setting
+        UiSettings uiSettings = mNaverMap.getUiSettings();
+        uiSettings.setCompassEnabled(true);
+        uiSettings.setIndoorLevelPickerEnabled(true);
+        uiSettings.setLocationButtonEnabled(true);
+        mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+//        // 위치 변경 이벤트
+//        mNaverMap.addOnLocationChangeListener(location ->
+//                Toast.makeText(this,
+//                        location.getLatitude() + ", " + location.getLongitude(),
+//                        Toast.LENGTH_SHORT).show());
+
     }
 
     @Override // 지도
