@@ -27,7 +27,16 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/relLayout1"
             android:layout_above="@+id/relLayout3"
-            />
+            >
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/light_onoff"
+                android:text="light"
+                />
+
+        </FrameLayout>
+
 
         <!--bottom navigation bar-->
         <RelativeLayout

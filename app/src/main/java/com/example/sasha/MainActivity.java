@@ -16,6 +16,8 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -63,10 +65,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
     ArrayList<Marker> markers_light = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
 
         mBottomNV = findViewById(R.id.bottomNavViewBar);
         mBottomNV.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() { //NavigationItemSelecte
@@ -81,6 +86,15 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         context=this;
 
 
+        Button light_onoff = (Button) findViewById(R.id.light_onoff);
+        light_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                for (Marker marker : markers_light) {
+                    marker.setMap(null);
+                }
+            }
+        });
 
         // 지도
         FragmentManager fm = getSupportFragmentManager();
@@ -95,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     }
 
     private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
+        Button light_onoff = (Button) findViewById(R.id.light_onoff);
+
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -107,15 +123,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
             if (id == R.id.ic_map) {
+                light_onoff.setVisibility(View.VISIBLE);
                 fragment = new MapPageFragment();
             }
             else if (id == R.id.ic_alert){
-
+                light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new AlertPageFragment();
             }
             else if (id == R.id.ic_community){
 
+                //
                 fragment = new CommunityPageFragment();
+
             }
             else if (id == R.id.ic_calendar){
 
