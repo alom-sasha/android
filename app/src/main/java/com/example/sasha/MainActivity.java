@@ -18,6 +18,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -64,13 +66,13 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
     ArrayList<Marker> markers_light = new ArrayList<>();
+    int check = 0;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
 
         mBottomNV = findViewById(R.id.bottomNavViewBar);
@@ -83,18 +85,27 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         });
         mBottomNV.setSelectedItemId(R.id.ic_map);
 
-        context=this;
+        context = this;
 
 
         Button light_onoff = (Button) findViewById(R.id.light_onoff);
         light_onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (Marker marker : markers_light) {
-                    marker.setMap(null);
+                if (check == 0) {
+                    for (Marker marker : markers_light) {
+                        marker.setMap(null);
+                        check = 1;
+                    }
+                } else {
+                    for (Marker marker : markers_light) {
+                        marker.setMap(mNaverMap);
+                        check = 0;
+                    }
                 }
             }
         });
+
 
         // 지도
         FragmentManager fm = getSupportFragmentManager();
@@ -105,6 +116,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mapFragment.getMapAsync(this);
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+
+//        Switch light_onoff = (Switch) findViewById(R.id.light_onoff);
+//        light_onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                if (isChecked) {
+//                    for (Marker marker : markers_light) {
+//                        marker.setMap(mNaverMap);
+//                    }
+//                } else{
+//                    for (Marker marker : markers_light) {
+//                        marker.setMap(null);
+//                    }
+//                }
+//            }
+//        });
 
     }
 
@@ -125,28 +152,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (id == R.id.ic_map) {
                 light_onoff.setVisibility(View.VISIBLE);
                 fragment = new MapPageFragment();
-            }
-            else if (id == R.id.ic_alert){
+            } else if (id == R.id.ic_alert) {
                 light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new AlertPageFragment();
-            }
-            else if (id == R.id.ic_community){
-
-                //
+            } else if (id == R.id.ic_community) {
                 fragment = new CommunityPageFragment();
-
-            }
-            else if (id == R.id.ic_calendar){
-
+            } else if (id == R.id.ic_calendar) {
                 fragment = new CalendarPageFragment();
-            }
-            else {
+            } else {
                 fragment = new SettingsPageFragment();
             }
-
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
-        }
-        else {
+        } else {
             fragmentTransaction.show(fragment);
         }
 
@@ -158,10 +175,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     @Override // 지도
     public void onMapReady(@NonNull NaverMap naverMap) {
         Log.d(TAG, "OnMapReady");
-
         mNaverMap = naverMap;
+        //Log.d("start db", "db start");
 
-        Log.d("start db" , "db start");
+        //가로등 위치
         db.collection("light")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -171,8 +188,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> cur = new HashMap<>();
                                 cur = document.getData();
-                                double latitude = (Double)cur.get("latitude");
-                                double longitude = (Double)cur.get("longitude");
+                                double latitude = (Double) cur.get("latitude");
+                                double longitude = (Double) cur.get("longitude");
 
                                 Marker marker = new Marker();
                                 marker.setPosition(new LatLng(latitude, longitude));
@@ -181,7 +198,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 latlngs_light.add(new LatLng(latitude, longitude));
                                 //Log.d(document.getId(),(Double)cur.get("latitude") + "   " + (Double)cur.get("longitude"));
 
-                                Log.d(TAG, document.getId() + " => " + latitude + "   "  + longitude+ " "+String.valueOf(latlngs_light.size()) );
+                                Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -193,22 +210,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-        //iterator 사용
+
 
 
 
 
         //현재 위치 추적
-
         mNaverMap.setLocationSource(mLocationSource);
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
 
         //UI Setting
         UiSettings uiSettings = mNaverMap.getUiSettings();
         uiSettings.setCompassEnabled(true);
-        uiSettings.setIndoorLevelPickerEnabled(true);
+        //uiSettings.setIndoorLevelPickerEnabled(true);
         uiSettings.setLocationButtonEnabled(true);
         mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
 //        // 위치 변경 이벤트
 //        mNaverMap.addOnLocationChangeListener(location ->
 //                Toast.makeText(this,
