@@ -50,7 +50,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
-
     private BottomNavigationView mBottomNV;
     public static Context context;
 
@@ -150,21 +149,28 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
             if (id == R.id.ic_map) {
-                light_onoff.setVisibility(View.VISIBLE);
                 fragment = new MapPageFragment();
             } else if (id == R.id.ic_alert) {
                 light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new AlertPageFragment();
             } else if (id == R.id.ic_community) {
+                light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new CommunityPageFragment();
             } else if (id == R.id.ic_calendar) {
+                light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new CalendarPageFragment();
             } else {
+                light_onoff.setVisibility(View.INVISIBLE);
                 fragment = new SettingsPageFragment();
             }
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
         } else {
             fragmentTransaction.show(fragment);
+            if (id == R.id.ic_map) {
+                light_onoff.setVisibility(View.VISIBLE);
+            } else{
+                light_onoff.setVisibility(View.INVISIBLE);
+            }
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
@@ -208,11 +214,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                 });
 
-
-
-
-
-
         //현재 위치 추적
         mNaverMap.setLocationSource(mLocationSource);
         ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSION_REQUEST_CODE);
@@ -231,7 +232,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 //                        Toast.LENGTH_SHORT).show());
 
     }
-
     @Override // 지도
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -242,4 +242,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
+
+
+
 }
