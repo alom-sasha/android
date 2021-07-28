@@ -190,7 +190,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 cur = document.getData();
                                 double latitude = (Double) cur.get("latitude");
                                 double longitude = (Double) cur.get("longitude");
-
                                 Marker marker = new Marker();
                                 marker.setPosition(new LatLng(latitude, longitude));
                                 //marker.setMap(naverMap);
@@ -203,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
                         }
-
                         for (Marker marker : markers_light) {
                             marker.setMap(naverMap);
                         }

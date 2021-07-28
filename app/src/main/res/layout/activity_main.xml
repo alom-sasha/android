@@ -28,8 +28,6 @@
             android:layout_below="@+id/relLayout1"
             android:layout_above="@+id/relLayout3"
             >
-
-
             <Button
                 android:id="@+id/light_onoff"
                 android:layout_width="112dp"
