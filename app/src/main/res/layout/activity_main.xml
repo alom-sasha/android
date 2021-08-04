@@ -18,8 +18,56 @@
             android:layout_height="wrap_content"
             android:id="@+id/relLayout1">
             <include layout="@layout/layout_top_tabs"/>
+
+            <RelativeLayout
+                android:layout_below="@+id/relLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_light_onoff"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="light"
+                    android:textSize="10dp" />
+                <Button
+                    android:id="@+id/btn_police_onoff"
+                    android:layout_width="80dp"
+                    android:textSize="10dp"
+                    android:layout_toRightOf="@+id/btn_light_onoff"
+                    android:layout_height="wrap_content"
+                    android:text="police" />
+                <Button
+                    android:id="@+id/btn_cctv_onoff"
+                    android:layout_width="80dp"
+                    android:textSize="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/btn_police_onoff"
+                    android:text="cctv" />
+                <Button
+                    android:id="@+id/btn_safeguard_onoff"
+                    android:layout_width="80dp"
+                    android:textSize="10dp"
+                    android:layout_toRightOf="@+id/btn_cctv_onoff"
+                    android:layout_height="wrap_content"
+                    android:text="safeguard" />
+
+                <Button
+                    android:id="@+id/btn_alarmbell_onoff"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/btn_safeguard_onoff"
+                    android:text="alarmbell"
+                    android:textSize="10dp" />
+
+            </RelativeLayout>
+
+
         </RelativeLayout>
         <!--body-->
+
+
 
         <FrameLayout
             android:id="@+id/content_layout"
@@ -28,11 +76,9 @@
             android:layout_below="@+id/relLayout1"
             android:layout_above="@+id/relLayout3"
             >
-            <Button
-                android:id="@+id/light_onoff"
-                android:layout_width="112dp"
-                android:layout_height="wrap_content"
-                android:text="light" />
+
+
+
 
         </FrameLayout>
 

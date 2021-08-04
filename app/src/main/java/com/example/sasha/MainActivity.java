@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -40,6 +41,7 @@ import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.UiSettings;
 import com.naver.maps.map.overlay.Marker;
+import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.security.MessageDigest;
@@ -64,9 +66,23 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
-    ArrayList<Marker> markers_light = new ArrayList<>();
-    int check = 0;
 
+    ArrayList<Map<String, Object>> light = new ArrayList<>();
+    ArrayList<Marker> markers_light = new ArrayList<>();
+
+    ArrayList<Map<String, Object>> alarmbell = new ArrayList<>();
+    ArrayList<Marker> markers_alarmbell = new ArrayList<>();
+
+    ArrayList<Map<String, Object>> cctv = new ArrayList<>();
+    ArrayList<Marker> markers_cctv = new ArrayList<>();
+
+    ArrayList<Map<String, Object>> policeoffice = new ArrayList<>();
+    ArrayList<Marker> markers_policeoffice = new ArrayList<>();
+
+    ArrayList<Map<String, Object>> safeguardhouse = new ArrayList<>();
+    ArrayList<Marker> markers_safeguardhouse = new ArrayList<>();
+
+    int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +103,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         context = this;
 
 
-        Button light_onoff = (Button) findViewById(R.id.light_onoff);
-        light_onoff.setOnClickListener(new View.OnClickListener() {
+        Button btn_light_onoff = (Button) findViewById(R.id.btn_light_onoff);
+        btn_light_onoff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (check == 0) {
@@ -105,6 +121,77 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+        Button btn_cctv_onoff = (Button) findViewById(R.id.btn_cctv_onoff);
+        btn_cctv_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check1 == 0) {
+                    for (Marker marker : markers_cctv) {
+                        marker.setMap(null);
+                        check1 = 1;
+                    }
+                } else {
+                    for (Marker marker : markers_cctv) {
+                        marker.setMap(mNaverMap);
+                        check1 = 0;
+                    }
+                }
+            }
+        });
+
+        Button btn_police_onoff = (Button) findViewById(R.id.btn_police_onoff);
+        btn_police_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check2 == 0) {
+                    for (Marker marker : markers_policeoffice) {
+                        marker.setMap(null);
+                        check2 = 1;
+                    }
+                } else {
+                    for (Marker marker : markers_policeoffice) {
+                        marker.setMap(mNaverMap);
+                        check2 = 0;
+                    }
+                }
+            }
+        });
+
+        Button btn_safeguard_onoff = (Button) findViewById(R.id.btn_safeguard_onoff);
+        btn_safeguard_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check3 == 0) {
+                    for (Marker marker : markers_safeguardhouse) {
+                        marker.setMap(null);
+                        check3 = 1;
+                    }
+                } else {
+                    for (Marker marker : markers_safeguardhouse) {
+                        marker.setMap(mNaverMap);
+                        check3 = 0;
+                    }
+                }
+            }
+        });
+
+        Button btn_alarmbell_onoff = (Button) findViewById(R.id.btn_alarmbell_onoff);
+        btn_alarmbell_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check4 == 0) {
+                    for (Marker marker : markers_alarmbell) {
+                        marker.setMap(null);
+                        check4 = 1;
+                    }
+                } else {
+                    for (Marker marker : markers_alarmbell) {
+                        marker.setMap(mNaverMap);
+                        check4 = 0;
+                    }
+                }
+            }
+        });
 
         // 지도
         FragmentManager fm = getSupportFragmentManager();
@@ -116,26 +203,14 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         mLocationSource = new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
 
-//        Switch light_onoff = (Switch) findViewById(R.id.light_onoff);
-//        light_onoff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-//            @Override
-//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//                if (isChecked) {
-//                    for (Marker marker : markers_light) {
-//                        marker.setMap(mNaverMap);
-//                    }
-//                } else{
-//                    for (Marker marker : markers_light) {
-//                        marker.setMap(null);
-//                    }
-//                }
-//            }
-//        });
-
     }
 
     private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
-        Button light_onoff = (Button) findViewById(R.id.light_onoff);
+        Button btn_light_onoff = (Button) findViewById(R.id.btn_light_onoff);
+        Button btn_cctv_onoff = (Button) findViewById(R.id.btn_cctv_onoff);
+        Button btn_police_onoff = (Button) findViewById(R.id.btn_police_onoff);
+        Button btn_safeguard_onoff = (Button) findViewById(R.id.btn_safeguard_onoff);
+        Button btn_alarmbell_onoff = (Button) findViewById(R.id.btn_alarmbell_onoff);
 
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -151,25 +226,49 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (id == R.id.ic_map) {
                 fragment = new MapPageFragment();
             } else if (id == R.id.ic_alert) {
-                light_onoff.setVisibility(View.INVISIBLE);
+                btn_light_onoff.setVisibility(View.INVISIBLE);
+                btn_cctv_onoff.setVisibility(View.INVISIBLE);
+                btn_police_onoff.setVisibility(View.INVISIBLE);
+                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
                 fragment = new AlertPageFragment();
             } else if (id == R.id.ic_community) {
-                light_onoff.setVisibility(View.INVISIBLE);
+                btn_light_onoff.setVisibility(View.INVISIBLE);
+                btn_cctv_onoff.setVisibility(View.INVISIBLE);
+                btn_police_onoff.setVisibility(View.INVISIBLE);
+                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
                 fragment = new CommunityPageFragment();
             } else if (id == R.id.ic_calendar) {
-                light_onoff.setVisibility(View.INVISIBLE);
+                btn_light_onoff.setVisibility(View.INVISIBLE);
+                btn_cctv_onoff.setVisibility(View.INVISIBLE);
+                btn_police_onoff.setVisibility(View.INVISIBLE);
+                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
                 fragment = new CalendarPageFragment();
             } else {
-                light_onoff.setVisibility(View.INVISIBLE);
+                btn_light_onoff.setVisibility(View.INVISIBLE);
+                btn_cctv_onoff.setVisibility(View.INVISIBLE);
+                btn_police_onoff.setVisibility(View.INVISIBLE);
+                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
                 fragment = new SettingsPageFragment();
             }
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
         } else {
             fragmentTransaction.show(fragment);
             if (id == R.id.ic_map) {
-                light_onoff.setVisibility(View.VISIBLE);
+                btn_light_onoff.setVisibility(View.VISIBLE);
+                btn_cctv_onoff.setVisibility(View.VISIBLE);
+                btn_police_onoff.setVisibility(View.VISIBLE);
+                btn_safeguard_onoff.setVisibility(View.VISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.VISIBLE);
             } else{
-                light_onoff.setVisibility(View.INVISIBLE);
+                btn_light_onoff.setVisibility(View.INVISIBLE);
+                btn_cctv_onoff.setVisibility(View.INVISIBLE);
+                btn_police_onoff.setVisibility(View.INVISIBLE);
+                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
+                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -184,7 +283,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         mNaverMap = naverMap;
         //Log.d("start db", "db start");
 
-        //가로등 위치
+        //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -194,16 +293,18 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                             for (QueryDocumentSnapshot document : task.getResult()) {
                                 Map<String, Object> cur = new HashMap<>();
                                 cur = document.getData();
+                                light.add(cur);
                                 double latitude = (Double) cur.get("latitude");
                                 double longitude = (Double) cur.get("longitude");
                                 Marker marker = new Marker();
                                 marker.setPosition(new LatLng(latitude, longitude));
-                                //marker.setMap(naverMap);
+                                marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_light_24));
+                                marker.setIconTintColor(Color.MAGENTA);
+                                marker.setAlpha(1);
+                                marker.setMinZoom(15);
+                                marker.setMaxZoom(21);
                                 markers_light.add(marker);
                                 latlngs_light.add(new LatLng(latitude, longitude));
-                                //Log.d(document.getId(),(Double)cur.get("latitude") + "   " + (Double)cur.get("longitude"));
-
-                                Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -213,6 +314,140 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         }
                     }
                 });
+
+
+        //cctv location
+        db.collection("cctv")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cur = new HashMap<>();
+                                cur = document.getData();
+                                cctv.add(cur);
+                                double latitude = (Double) cur.get("latitude");
+                                double longitude = (Double) cur.get("longitude");
+
+                                Marker marker = new Marker();
+                                marker.setPosition(new LatLng(latitude, longitude));
+                                marker.setIconTintColor(Color.RED);
+                                marker.setAlpha(1);
+                                marker.setMinZoom(15);
+                                marker.setMaxZoom(21);
+                                marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_cctv_24));
+                                markers_cctv.add(marker);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        for (Marker marker : markers_cctv) {
+                            marker.setMap(naverMap);
+                        }
+                    }
+                });
+
+        // alarmbell location
+        db.collection("alarmbell")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cur = new HashMap<>();
+                                cur = document.getData();
+                                alarmbell.add(cur);
+                                double latitude = (Double) cur.get("latitude");
+                                double longitude = (Double) cur.get("longitude");
+
+                                Marker marker = new Marker();
+                                marker.setPosition(new LatLng(latitude, longitude));
+                                marker.setIconTintColor(Color.GREEN);
+                                marker.setAlpha(1);
+                                marker.setMinZoom(15);
+                                marker.setMaxZoom(21);
+                                marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_alarmbell_24));
+                                markers_alarmbell.add(marker);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        for (Marker marker : markers_alarmbell) {
+                            marker.setMap(naverMap);
+                        }
+                    }
+                });
+
+        //policeoffice location
+        db.collection("policeoffice")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cur = new HashMap<>();
+                                cur = document.getData();
+                                policeoffice.add(cur);
+                                double longitude = (Double) cur.get("latitude");
+                                double latitude = (Double) cur.get("longitude");
+
+                                Marker marker = new Marker();
+                                marker.setPosition(new LatLng(latitude, longitude));
+                                marker.setIconTintColor(Color.BLACK);
+                                marker.setAlpha(1);
+                                marker.setMinZoom(10);
+                                marker.setMaxZoom(21);
+                                marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_police_24));
+                                markers_policeoffice.add(marker);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        for (Marker marker : markers_policeoffice) {
+                            marker.setMap(naverMap);
+                        }
+                    }
+                });
+
+        //safeguardhouse location
+        db.collection("safeguardhouse")
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                Map<String, Object> cur = new HashMap<>();
+                                cur = document.getData();
+                                safeguardhouse.add(cur);
+                                double latitude = (Double) cur.get("latitude");
+                                double longitude = (Double) cur.get("longitude");
+
+                                Marker marker = new Marker();
+                                marker.setPosition(new LatLng(latitude, longitude));
+                                marker.setIconTintColor(Color.GRAY);
+                                marker.setAlpha(1);
+                                marker.setMinZoom(15);
+                                marker.setMaxZoom(21);
+                                marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_safehouse_24));
+                                markers_safeguardhouse.add(marker);
+                            }
+                        } else {
+                            Log.w(TAG, "Error getting documents.", task.getException());
+                        }
+
+                        for (Marker marker : markers_safeguardhouse) {
+                            marker.setMap(naverMap);
+                        }
+                    }
+                });
+
 
         //현재 위치 추적
         mNaverMap.setLocationSource(mLocationSource);
@@ -242,7 +477,6 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         }
     }
-
 
 
 }
