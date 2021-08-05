@@ -34,8 +34,6 @@ public class MapPageFragment extends Fragment {
         MainActivity mainActivity = (MainActivity) getActivity();
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_map_page, container, false);
 
-
-
           return rootView;
     }
 
