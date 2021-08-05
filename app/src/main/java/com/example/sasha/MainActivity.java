@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
     ArrayList<Map<String, Object>> safeguardhouse = new ArrayList<>();
     ArrayList<Marker> markers_safeguardhouse = new ArrayList<>();
 
-    int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0;
+    int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0, check5 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,6 +189,22 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                         marker.setMap(mNaverMap);
                         check4 = 0;
                     }
+                }
+            }
+        });
+
+        Button btn_mode_onoff = (Button) findViewById(R.id.btn_mode_onoff);
+        btn_mode_onoff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (check5 == 0) {
+                    mNaverMap.setMapType(NaverMap.MapType.Navi);
+                    mNaverMap.setNightModeEnabled(true);
+                    check5= 1;
+                } else {
+                    mNaverMap.setNightModeEnabled(false);
+                    mNaverMap.setMapType(NaverMap.MapType.Basic);
+                    check5= 0;
                 }
             }
         });
