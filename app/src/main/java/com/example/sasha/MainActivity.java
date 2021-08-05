@@ -9,28 +9,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.Manifest;
 import android.content.Context;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.Signature;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.Switch;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -44,11 +34,8 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -209,6 +196,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             }
         });
 
+
+        EditText edittext_destination = (EditText) findViewById(R.id.edittext_destination);
+        edittext_destination.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                SetOriginDestinationFregment fragment = new SetOriginDestinationFregment();
+            }
+        });
+
+
         // 지도
         FragmentManager fm = getSupportFragmentManager();
         MapFragment mapFragment = (MapFragment) fm.findFragmentById(R.id.map);
@@ -229,6 +227,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Button btn_alarmbell_onoff = (Button) findViewById(R.id.btn_alarmbell_onoff);
         Button btn_mode_onoff = (Button) findViewById(R.id.btn_mode_onoff);
 
+        EditText edittext_destination = (EditText) findViewById(R.id.edittext_destination);
+
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -240,8 +240,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
+            edittext_destination.setVisibility(View.INVISIBLE);
             if (id == R.id.ic_map) {
                 fragment = new MapPageFragment();
+                edittext_destination.setVisibility(View.VISIBLE);
             } else if (id == R.id.ic_alert) {
                 button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new AlertPageFragment();
@@ -260,8 +262,10 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             fragmentTransaction.show(fragment);
             if (id == R.id.ic_map) {
                 button_setVisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
+                edittext_destination.setVisibility(View.VISIBLE);
             } else{
                 button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
+                edittext_destination.setVisibility(View.INVISIBLE);
             }
         }
 
