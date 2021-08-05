@@ -227,6 +227,7 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         Button btn_police_onoff = (Button) findViewById(R.id.btn_police_onoff);
         Button btn_safeguard_onoff = (Button) findViewById(R.id.btn_safeguard_onoff);
         Button btn_alarmbell_onoff = (Button) findViewById(R.id.btn_alarmbell_onoff);
+        Button btn_mode_onoff = (Button) findViewById(R.id.btn_mode_onoff);
 
         String tag = String.valueOf(id);
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -242,55 +243,49 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
             if (id == R.id.ic_map) {
                 fragment = new MapPageFragment();
             } else if (id == R.id.ic_alert) {
-                btn_light_onoff.setVisibility(View.INVISIBLE);
-                btn_cctv_onoff.setVisibility(View.INVISIBLE);
-                btn_police_onoff.setVisibility(View.INVISIBLE);
-                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
+                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new AlertPageFragment();
             } else if (id == R.id.ic_community) {
-                btn_light_onoff.setVisibility(View.INVISIBLE);
-                btn_cctv_onoff.setVisibility(View.INVISIBLE);
-                btn_police_onoff.setVisibility(View.INVISIBLE);
-                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
+                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new CommunityPageFragment();
             } else if (id == R.id.ic_calendar) {
-                btn_light_onoff.setVisibility(View.INVISIBLE);
-                btn_cctv_onoff.setVisibility(View.INVISIBLE);
-                btn_police_onoff.setVisibility(View.INVISIBLE);
-                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
+                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new CalendarPageFragment();
             } else {
-                btn_light_onoff.setVisibility(View.INVISIBLE);
-                btn_cctv_onoff.setVisibility(View.INVISIBLE);
-                btn_police_onoff.setVisibility(View.INVISIBLE);
-                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
+                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new SettingsPageFragment();
             }
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
         } else {
             fragmentTransaction.show(fragment);
             if (id == R.id.ic_map) {
-                btn_light_onoff.setVisibility(View.VISIBLE);
-                btn_cctv_onoff.setVisibility(View.VISIBLE);
-                btn_police_onoff.setVisibility(View.VISIBLE);
-                btn_safeguard_onoff.setVisibility(View.VISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.VISIBLE);
+                button_setVisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
             } else{
-                btn_light_onoff.setVisibility(View.INVISIBLE);
-                btn_cctv_onoff.setVisibility(View.INVISIBLE);
-                btn_police_onoff.setVisibility(View.INVISIBLE);
-                btn_safeguard_onoff.setVisibility(View.INVISIBLE);
-                btn_alarmbell_onoff.setVisibility(View.INVISIBLE);
+                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
             }
         }
 
         fragmentTransaction.setPrimaryNavigationFragment(fragment);
         fragmentTransaction.setReorderingAllowed(true);
         fragmentTransaction.commitNow();
+    }
+
+    void button_setInvisible(Button btn1, Button btn2, Button btn3, Button btn4, Button btn5, Button btn6){
+        btn1.setVisibility(View.INVISIBLE);
+        btn2.setVisibility(View.INVISIBLE);
+        btn3.setVisibility(View.INVISIBLE);
+        btn4.setVisibility(View.INVISIBLE);
+        btn5.setVisibility(View.INVISIBLE);
+        btn6.setVisibility(View.INVISIBLE);
+    }
+
+    void button_setVisible(Button btn1, Button btn2, Button btn3, Button btn4, Button btn5, Button btn6){
+        btn1.setVisibility(View.VISIBLE);
+        btn2.setVisibility(View.VISIBLE);
+        btn3.setVisibility(View.VISIBLE);
+        btn4.setVisibility(View.VISIBLE);
+        btn5.setVisibility(View.VISIBLE);
+        btn6.setVisibility(View.VISIBLE);
     }
 
     @Override // 지도
