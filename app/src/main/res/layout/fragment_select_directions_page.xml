@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SelectDirectionsFregment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:drawableLeft="@drawable/baseline_swap_horiz_black_36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"/>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="140dp">
+                <EditText
+                    android:id="@+id/edittext_origin"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="35dp"
+                    android:textSize="20sp"
+                    android:background="@color/grey"
+                    android:hint="출발지를 입력하세요..">
+
+                </EditText>
+
+                <EditText
+                    android:id="@+id/edittext_destination"
+                    android:layout_below="@+id/edittext_origin"
+                    android:layout_width="300dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="20sp"
+                    android:background="@color/grey"
+                    android:hint="도지를 입력하세요..">
+                </EditText>
+
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/cancel_button"
+                android:drawableLeft="@drawable/baseline_close_36"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="40sp"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="450dp"
+                android:textSize="25sp"
+                android:text="길찾기 결과화면 "
+                android:layout_weight="1"/>
+
+
+        </LinearLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginBottom="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@color/grey">
+            <TextView
+                android:id="@+id/cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소요시간"/>
+            <TextView
+                android:id="@+id/cost_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost"
+                android:textSize="20sp"
+                android:textColor="@color/comments_blue"
+                android:text="5분"/>
+            <TextView
+                android:id="@+id/cost_miter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cost"
+                android:layout_toRightOf="@+id/cost_min"
+                android:textSize="10sp"
+                android:textColor="@color/black"
+                android:text="200m"/>
+
+            <ImageView
+                android:id="@+id/start_direction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="0dp"
+                android:src="@drawable/baseline_touch_app_black_48" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/start_direction"
+                android:layout_alignParentRight="true"
+                android:text="탐색시작"/>
+
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+</FrameLayout>
