@@ -404,8 +404,8 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
                                 Map<String, Object> cur = new HashMap<>();
                                 cur = document.getData();
                                 policeoffice.add(cur);
-                                double longitude = (Double) cur.get("latitude");
-                                double latitude = (Double) cur.get("longitude");
+                                double latitude = (Double) cur.get("latitude");
+                                double longitude = (Double) cur.get("longitude");
 
                                 Marker marker = new Marker();
                                 marker.setPosition(new LatLng(latitude, longitude));
