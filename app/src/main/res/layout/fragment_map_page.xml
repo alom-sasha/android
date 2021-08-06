@@ -10,4 +10,64 @@
         android:id="@+id/map"
         android:name="com.naver.maps.map.MapFragment"/>
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="60dp">
+        <Button
+            android:id="@+id/btn_light_onoff"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:text="light"
+            android:textSize="10dp" />
+        <Button
+            android:id="@+id/btn_police_onoff"
+            android:layout_width="68dp"
+            android:textSize="10dp"
+            android:layout_below="@+id/btn_light_onoff"
+            android:layout_height="wrap_content"
+            android:text="police" />
+        <Button
+            android:id="@+id/btn_cctv_onoff"
+            android:layout_width="68dp"
+            android:textSize="10dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_police_onoff"
+            android:text="cctv" />
+        <Button
+            android:id="@+id/btn_safeguard_onoff"
+            android:layout_width="68dp"
+            android:textSize="10dp"
+            android:layout_below="@+id/btn_cctv_onoff"
+            android:layout_height="wrap_content"
+            android:text="safeguard" />
+
+        <Button
+            android:id="@+id/btn_alarmbell_onoff"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_safeguard_onoff"
+            android:text="alarmbell"
+            android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/btn_mode_onoff"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_alarmbell_onoff"
+            android:text="mode"
+            android:textSize="10dp" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/edittext_destination"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
+        android:background="@color/grey"
+        android:hint="목적지를 입력하세요.."/>
+
 </RelativeLayout>
