@@ -240,19 +240,17 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
 
         Fragment fragment = fragmentManager.findFragmentByTag(tag);
         if (fragment == null) {
+            button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
             if (id == R.id.ic_map) {
+                button_setVisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new MapPageFragment();
             } else if (id == R.id.ic_alert) {
-                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new AlertPageFragment();
             } else if (id == R.id.ic_community) {
-                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new CommunityPageFragment();
             } else if (id == R.id.ic_calendar) {
-                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new CalendarPageFragment();
             } else {
-                button_setInvisible(btn_alarmbell_onoff, btn_cctv_onoff, btn_light_onoff,btn_mode_onoff, btn_police_onoff, btn_safeguard_onoff);
                 fragment = new SettingsPageFragment();
             }
             fragmentTransaction.add(R.id.content_layout, fragment, tag);
