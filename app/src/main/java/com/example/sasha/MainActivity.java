@@ -153,9 +153,10 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public String toString() {
-            return "Path{" +
-                    "coordinates=" + coordinates +
-                    '}';
+//            return "Path{" +
+//                    "coordinates=" + coordinates +
+//                    '}';
+            return coordinates + " ";
         }
 
     }
@@ -206,7 +207,7 @@ public class MainActivity extends AppCompatActivity{
                     */
                     Log.d(TAG,p.toString());
                     result = p.toString();
-                    Log.d("result in ==>" , result);
+                    //Log.d("result in ==>" , result);
                 }
 
 
