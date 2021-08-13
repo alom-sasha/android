@@ -69,6 +69,8 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     ArrayList<Marker> markers_safeguardhouse = new ArrayList<>();
     ArrayList<InfoWindow> info_safeguardhouse = new ArrayList<>();
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
