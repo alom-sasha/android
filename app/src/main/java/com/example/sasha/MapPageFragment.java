@@ -52,7 +52,6 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
 
-    NaverMap mNavermap;
     ArrayList<Map<String, Object>> light = new ArrayList<>();
     ArrayList<Marker> markers_light = new ArrayList<>();
 
@@ -217,7 +216,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         mainActivity.setmNaverMap(naverMap);
         //Log.d("start db", "db start");
 
-        mNavermap = naverMap;
+        mainActivity.setmNaverMap(naverMap);
 
         //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
