@@ -45,12 +45,39 @@ import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
 import com.naver.maps.map.util.FusedLocationSource;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import androidx.appcompat.app.AppCompatActivity;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.content.ContentValues.TAG;
+
+
+
+
 
 public class MainActivity extends AppCompatActivity{
     private BottomNavigationView mBottomNV;
@@ -86,7 +113,121 @@ public class MainActivity extends AppCompatActivity{
 
         context = this;
 
+        String key = "pk.eyJ1IjoiaGFpc2VvbmciLCJhIjoiY2tyZjgxN3Y3MHZxazJvdDc3aHY5d2VzbiJ9.OX59hcCGUPl-ipdu1nfzdQ";
+        LatLng origin = new LatLng(37.516260,127.131193);
+        LatLng destination = new LatLng(37.510166,127.132372);
+
+        String result;
+
+
+        try{
+            MainActivity.HttpAsynTask task = new MainActivity.HttpAsynTask();
+
+            result = task.execute("https://api.mapbox.com/directions/v5/mapbox/walking/"
+                    +origin.longitude+","+origin.latitude+";"+destination.longitude+","+destination.latitude
+                    +"?geometries=geojson&access_token="+key).get();
+
+            Log.d("result sl ==> " , result);
+        }catch(Exception e){
+
+        }
+
+
     }
+
+    public static class Path{
+        private ArrayList<LatLng> coordinates = new ArrayList<LatLng>();
+
+        public Path(ArrayList<LatLng> coordinates) {
+            this.coordinates = coordinates;
+        }
+
+        public ArrayList<LatLng> getCoordinates() {
+            return coordinates;
+        }
+
+        public void setCoordinates(ArrayList<LatLng> coordinates) {
+            this.coordinates = coordinates;
+        }
+
+        @Override
+        public String toString() {
+//            return "Path{" +
+//                    "coordinates=" + coordinates +
+//                    '}';
+            return coordinates + " ";
+        }
+
+    }
+
+    private static class HttpAsynTask extends AsyncTask<String, Void, String> {
+        OkHttpClient client = new OkHttpClient();
+
+        @Override
+        protected String doInBackground(String... params) {
+            List<Path> pathList = new ArrayList<>();
+            String strUrl = params[0];
+            String result = null;
+
+
+            try {
+                Request request = new Request.Builder()
+                        .url(strUrl)
+                        .build();
+                Response response = client.newCall(request).execute();
+
+                JSONObject jsonObject = new JSONObject(response.body().string());
+                JSONArray routes = jsonObject.getJSONArray("routes");
+
+                for(int i=0; i<routes.length();i++){
+                    JSONObject route = routes.getJSONObject(i);
+                    JSONObject geometry = route.getJSONObject("geometry");
+                    JSONArray coordinates = geometry.getJSONArray("coordinates");
+                    ArrayList<LatLng> a = new ArrayList<LatLng>();
+
+                    for(int j=0;j<coordinates.length();j++){
+                        JSONArray latlng = coordinates.getJSONArray(j);
+                        Double lat = latlng.getDouble(1);
+                        //double lat = Double.valueOf(lat_.toString());
+                        Log.d(TAG,lat.toString());
+
+                        Double lng = latlng.getDouble(0);
+                        //double lng = Double.valueOf(lng_.toString());
+                        Log.d(TAG,lng.toString());
+                        LatLng l = new LatLng(lat,lng);
+                        a.add(l);
+                        Log.d(TAG,latlng.toString());
+                    }
+
+                    Path p = new Path(a);
+                    /*
+                    Path 생성
+                    Path{coordinates=[lat/lng: (37.516245,127.131227), lat/lng: (37.515881,127.130975), lat/lng: (37.515959,127.130796), lat/lng: (37.512617,127.128531), lat/lng: (37.512094,127.128512), lat/lng: (37.511757,127.128627), lat/lng: (37.511299,127.129098), lat/lng: (37.511044,127.129711), lat/lng: (37.511038,127.129983), lat/lng: (37.510071,127.13231)]}
+                    */
+                    Log.d(TAG,p.toString());
+                    result = p.toString();
+                    //Log.d("result in ==>" , result);
+                }
+
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e){
+                e.printStackTrace();
+            }
+
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            if (s!=null){
+                Log.d(TAG, s);
+            }
+        }
+    }
+
 
     private void BottomNavigate(int id) {  //BottomNavigation 페이지 변경
 
