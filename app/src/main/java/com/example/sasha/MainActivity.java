@@ -129,8 +129,18 @@ public class MainActivity extends AppCompatActivity{
 
             Log.d("result sl ==> " , result);
         }catch(Exception e){
-
+            result = "none";
         }
+        String[] result_d = result.split(" ");
+        ArrayList<LatLng> result_latlng = new ArrayList<>();
+        Log.d("String result_d", result_d[5]);
+        for(int i=0;i<result_d.length;i+=2){
+            double lat = Double.parseDouble(result_d[i]);
+            double lng = Double.parseDouble(result_d[i+1]);
+            result_latlng.add(new LatLng(lat, lng));
+        }
+
+        Log.d("arraylist", result_latlng.toString());
 
 
     }
@@ -190,22 +200,28 @@ public class MainActivity extends AppCompatActivity{
                         Double lat = latlng.getDouble(1);
                         //double lat = Double.valueOf(lat_.toString());
                         Log.d(TAG,lat.toString());
+                        if( result == null){
+                            result = lat.toString() + " ";
+                        } else{
+                            result += lat.toString() + " ";
+                        }
 
                         Double lng = latlng.getDouble(0);
                         //double lng = Double.valueOf(lng_.toString());
+                        result += lng.toString() + " ";
                         Log.d(TAG,lng.toString());
-                        LatLng l = new LatLng(lat,lng);
-                        a.add(l);
+                        //LatLng l = new LatLng(lat,lng);
+                        //a.add(l);
                         Log.d(TAG,latlng.toString());
                     }
 
-                    Path p = new Path(a);
+                    //Path p = new Path(a);
                     /*
                     Path 생성
                     Path{coordinates=[lat/lng: (37.516245,127.131227), lat/lng: (37.515881,127.130975), lat/lng: (37.515959,127.130796), lat/lng: (37.512617,127.128531), lat/lng: (37.512094,127.128512), lat/lng: (37.511757,127.128627), lat/lng: (37.511299,127.129098), lat/lng: (37.511044,127.129711), lat/lng: (37.511038,127.129983), lat/lng: (37.510071,127.13231)]}
                     */
-                    Log.d(TAG,p.toString());
-                    result = p.toString();
+                    //Log.d(TAG,p.toString());
+                    //result = p.toString();
                     //Log.d("result in ==>" , result);
                 }
 
