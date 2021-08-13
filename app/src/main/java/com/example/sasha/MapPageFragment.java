@@ -181,6 +181,15 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             }
         });
 
+        Button btn_login=(Button)rootView.findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mainActivity.getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         EditText edittext_destination = (EditText) rootView.findViewById(R.id.edittext_destination);
         edittext_destination.setOnClickListener(new View.OnClickListener() {

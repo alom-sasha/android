@@ -55,8 +55,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-
 import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -79,6 +77,8 @@ import static android.content.ContentValues.TAG;
 
 
 
+
+
 public class MainActivity extends AppCompatActivity{
     private BottomNavigationView mBottomNV;
     public static Context context;
@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity{
     private FusedLocationSource mLocationSource;
 
     int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0, check5 = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
