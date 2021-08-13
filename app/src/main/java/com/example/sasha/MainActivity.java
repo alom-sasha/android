@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity{
     private FusedLocationSource mLocationSource;
 
     int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0, check5 = 0;
-
+    ArrayList<LatLng> result_latlng = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity{
             result = "none";
         }
         String[] result_d = result.split(" ");
-        ArrayList<LatLng> result_latlng = new ArrayList<>();
+
         Log.d("String result_d", result_d[5]);
         for(int i=0;i<result_d.length;i+=2){
             double lat = Double.parseDouble(result_d[i]);
@@ -141,7 +141,6 @@ public class MainActivity extends AppCompatActivity{
         }
 
         Log.d("arraylist", result_latlng.toString());
-
 
     }
 
@@ -162,9 +161,6 @@ public class MainActivity extends AppCompatActivity{
 
         @Override
         public String toString() {
-//            return "Path{" +
-//                    "coordinates=" + coordinates +
-//                    '}';
             return coordinates + " ";
         }
 

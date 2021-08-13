@@ -37,9 +37,11 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -433,6 +435,13 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                         }
                     }
                 });
+
+
+
+        PathOverlay path = new PathOverlay();
+        path.setCoords(mainActivity.result_latlng);
+        path.setMap(naverMap);
+
 
 
 //        mNavermap.setOnMapClickListener((coord, point) -> {
