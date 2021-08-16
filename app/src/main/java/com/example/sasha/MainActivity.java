@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity{
     private static final int PERMISSION_REQUEST_CODE = 1000;
     private static final String[] PERMISSIONS = {
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION
+            Manifest.permission.ACCESS_COARSE_LOCATION 
     };
 
     private NaverMap mNaverMap;
