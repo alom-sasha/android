@@ -49,14 +49,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.815" />
 
-    <Button
-        android:id="@+id/kakao_login"
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/google_login"
         android:layout_width="325dp"
         android:layout_height="50dp"
         android:gravity="center"
-        android:text="login with Kakaotalk"
-        app:backgroundTint="#562400"
-        app:cornerRadius="10dp"
+        android:text="login with Google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

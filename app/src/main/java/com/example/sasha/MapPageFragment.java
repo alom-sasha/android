@@ -37,9 +37,11 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.overlay.PathOverlay;
 import com.naver.maps.map.util.FusedLocationSource;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -52,7 +54,6 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
 
-    NaverMap mNavermap;
     ArrayList<Map<String, Object>> light = new ArrayList<>();
     ArrayList<Marker> markers_light = new ArrayList<>();
 
@@ -69,6 +70,8 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     ArrayList<Map<String, Object>> safeguardhouse = new ArrayList<>();
     ArrayList<Marker> markers_safeguardhouse = new ArrayList<>();
     ArrayList<InfoWindow> info_safeguardhouse = new ArrayList<>();
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -182,6 +185,15 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             }
         });
 
+        Button btn_login=(Button)rootView.findViewById(R.id.btn_login);
+        btn_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mainActivity.getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
 
         EditText edittext_destination = (EditText) rootView.findViewById(R.id.edittext_destination);
         edittext_destination.setOnClickListener(new View.OnClickListener() {
@@ -217,7 +229,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         mainActivity.setmNaverMap(naverMap);
         //Log.d("start db", "db start");
 
-        mNavermap = naverMap;
+        mainActivity.setmNaverMap(naverMap);
 
         //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
@@ -438,6 +450,13 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                         }
                     }
                 });
+
+
+
+        PathOverlay path = new PathOverlay();
+        path.setCoords(mainActivity.result_latlng);
+        path.setMap(naverMap);
+
 
 
 //        mNavermap.setOnMapClickListener((coord, point) -> {

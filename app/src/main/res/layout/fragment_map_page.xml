@@ -60,6 +60,14 @@
             android:layout_below="@+id/btn_alarmbell_onoff"
             android:text="mode"
             android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/btn_login"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_mode_onoff"
+            android:text="login"
+            android:textSize="10dp" />
     </RelativeLayout>
 
     <EditText
