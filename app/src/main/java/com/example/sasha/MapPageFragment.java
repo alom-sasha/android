@@ -379,7 +379,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                                     }
                                 });
 
-
+//commit
 
 
                             }
