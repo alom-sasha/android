@@ -40,3 +40,5 @@ public class pointAdapter extends InfoWindow.DefaultViewAdapter
         return view;
     }
 }
+// test
+// test2
