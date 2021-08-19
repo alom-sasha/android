@@ -345,16 +345,31 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                                 marker.setAnchor(new PointF(1, 1));
                                 markers_policeoffice.add(marker);
 
-                                InfoWindow infoWindow = new InfoWindow();
-                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
-                                    @NonNull
+//                                InfoWindow infoWindow = new InfoWindow();
+//                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+//                                    @NonNull
+//                                    @Override
+//                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
+//                                        return "address : " + address + "\n" + "name : " + name + "\n" + "belong : " + belong;
+//                                    }
+//                                });
+//                                infoWindow.setPosition(new LatLng(latitude, longitude));
+//                                info_policeoffice.add(infoWindow);
+                                marker.setOnClickListener(new Overlay.OnClickListener() {
                                     @Override
-                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
-                                        return "address : " + address + "\n" + "name : " + name + "\n" + "belong : " + belong;
+                                    public boolean onClick(@NonNull Overlay overlay) {
+                                        ViewGroup rootView = (ViewGroup) rootView.findViewById(R.id.mainActivity);
+                                        pointAdapter adapter = new pointAdapter(MapPageFragment.this , rootView);
+
+
+
+                                        return false;
                                     }
                                 });
-                                infoWindow.setPosition(new LatLng(latitude, longitude));
-                                info_policeoffice.add(infoWindow);
+
+
+
+
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -398,17 +413,17 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                                 marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_safehouse_24));
                                 markers_safeguardhouse.add(marker);
 
-                                InfoWindow infoWindow = new InfoWindow();
-                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
-                                    @NonNull
-                                    @Override
-                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
-                                        return "address_lot : " + address_lot + "\n" + "address_street : " + address_street + "\n"+ "name : " + name + "\n" + "phone_number : " + phone_number;
-                                    }
-                                });
-                                infoWindow.setPosition(new LatLng(latitude, longitude));
-                                //infoWindow.open(marker);
-                                info_safeguardhouse.add(infoWindow);
+//                                InfoWindow infoWindow = new InfoWindow();
+//                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+//                                    @NonNull
+//                                    @Override
+//                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
+//                                        return "address_lot : " + address_lot + "\n" + "address_street : " + address_street + "\n"+ "name : " + name + "\n" + "phone_number : " + phone_number;
+//                                    }
+//                                });
+//                                infoWindow.setPosition(new LatLng(latitude, longitude));
+//                                //infoWindow.open(marker);
+//                                info_safeguardhouse.add(infoWindow);
 
                             }
                         } else {
