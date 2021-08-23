@@ -1,14 +1,20 @@
 package com.example.sasha;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -19,6 +25,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -27,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.LocationSource;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
@@ -507,6 +515,13 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
 //                        location.getLatitude() + ", " + location.getLongitude(),
 //                        Toast.LENGTH_SHORT).show());
 
+        mainActivity.getmNaverMap().addOnLocationChangeListener(location ->
+                Toast.makeText(mainActivity,
+                        location.getLatitude() + ", " + location.getLongitude(),
+                        Toast.LENGTH_SHORT).show());
+
+
+
     }
     @Override // 지도
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -519,5 +534,70 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             }
         }
     }
+
+
+//    public class GpsOnlyLocationSource implements LocationSource, LocationListener {
+//        @NonNull
+//        private final Context context;
+//        @Nullable
+//        private final LocationManager locationManager;
+//        @Nullable
+//        private LocationSource.OnLocationChangedListener listener;
+//
+//        public GpsOnlyLocationSource(@NonNull Context context) {
+//            this.context = context;
+//            locationManager =
+//                    (LocationManager)context.getSystemService(Context.LOCATION_SERVICE);
+//        }
+//
+//        @Override
+//        public void activate(
+//                @NonNull LocationSource.OnLocationChangedListener listener) {
+//            if (locationManager == null) {
+//                return;
+//            }
+//
+//            if (PermissionChecker.checkSelfPermission(context,
+//                    Manifest.permission.ACCESS_FINE_LOCATION)
+//                    != PackageManager.PERMISSION_GRANTED && PermissionChecker.checkSelfPermission(context,
+//                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+//                // 권한 요청 로직 생략
+//                return;
+//            }
+//
+//            this.listener = listener;
+//            locationManager.requestLocationUpdates(
+//                    LocationManager.GPS_PROVIDER, 1000, 10, this);
+//        }
+//
+//        @Override
+//        public void deactivate() {
+//            if (locationManager == null) {
+//                return;
+//            }
+//
+//            listener = null;
+//            locationManager.removeUpdates(this);
+//        }
+//
+//        @Override
+//        public void onLocationChanged(Location location) {
+//            if (listener != null) {
+//                listener.onLocationChanged(location);
+//            }
+//        }
+//
+//        @Override
+//        public void onStatusChanged(String provider, int status, Bundle extras) {
+//        }
+//
+//        @Override
+//        public void onProviderEnabled(String provider) {
+//        }
+//
+//        @Override
+//        public void onProviderDisabled(String provider) {
+//        }
+//    }
 
 }
