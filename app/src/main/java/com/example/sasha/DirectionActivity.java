@@ -191,14 +191,12 @@ public class DirectionActivity extends AppCompatActivity {
 
         String result;
 
-        String clientId = "Ycu9uF6wApElpe1SNvhr"; //애플리케이션 클라이언트 아이디값"
-        String clientSecret = "DzL7nW10TE"; //애플리케이션 클라이언트 시크릿값"
         String finding = "잠실";
 
 
         try{
             DirectionActivity.HttpAsynTask task = new DirectionActivity.HttpAsynTask(this);
-            result = (task.execute("https://openapi.naver.com/v1/search/local?display=5&clientId=Ycu9uF6wApElpe1SNvhr&clientSecret=DzL7nW10TE&query="+finding,"clientId",clientId,"clientSecret",clientSecret)
+            result = (task.execute("https://openapi.naver.com/v1/search/local?display=5&clientId=Ycu9uF6wApElpe1SNvhr&clientSecret=DzL7nW10TE&query="+finding)
                     .get());
 
             Log.d("result sl ==> " , result);
@@ -237,11 +235,6 @@ public class DirectionActivity extends AppCompatActivity {
 
             // TODO : 아래 형식처럼 원하는 key과 value를 계속 추가시킬수있다.
             // 1. PHP 파일을 실행시킬 수 있는 주소와 전송할 데이터를 준비합니다.
-            String key = (String) params[1];
-            String value = (String) params[2];
-
-            String key2 = (String) params[3];
-            String value2 = (String) params[4];
 
             // HTTP 메시지 본문에 포함되어 전송되기 때문에 따로 데이터를 준비해야 합니다.
             // 전송할 데이터는 “이름=값” 형식이며 여러 개를 보내야 할 경우에는 항목 사이에 &를 추가합니다.
@@ -249,8 +242,7 @@ public class DirectionActivity extends AppCompatActivity {
 
             // TODO : 위에 추가한 형식처럼 아래 postParameters에 key과 value를 계속 추가시키면 끝이다.
             // ex : String postParameters = "name=" + name + "&country=" + country;
-            String postParameters = key + "=" + value +
-                    "&" + key2 + "=" + value2;
+            String postParameters = null;
 
             Log.d(TAG, postParameters);
 
@@ -259,6 +251,12 @@ public class DirectionActivity extends AppCompatActivity {
                 URL url = new URL(serverURL); // 주소가 저장된 변수를 이곳에 입력합니다.
 
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+
+                String clientId = "Ycu9uF6wApElpe1SNvhr"; //애플리케이션 클라이언트 아이디값"
+                String clientSecret = "DzL7nW10TE"; //애플리케이션 클라이언트 시크릿값"
+
+                httpURLConnection.setRequestProperty("clientId",clientId);
+                httpURLConnection.setRequestProperty("clientSecret",clientSecret);
 
                 httpURLConnection.setReadTimeout(5000); //5초안에 응답이 오지 않으면 예외가 발생합니다.
 
