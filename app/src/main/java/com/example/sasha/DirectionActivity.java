@@ -2,24 +2,10 @@
 package com.example.sasha;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 
-import android.app.ProgressDialog;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+<<<<<<< HEAD
 import com.naver.maps.geometry.LatLng;
 
 import org.json.JSONArray;
@@ -126,14 +112,15 @@ class ApiSearchLocal {
     }
 }
 */
+=======
+>>>>>>> parent of a6d9e6e (dd)
 public class DirectionActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direction);
+<<<<<<< HEAD
 
 
 
@@ -207,7 +194,10 @@ public class DirectionActivity extends AppCompatActivity {
             result = "none";
         }
 
+=======
+>>>>>>> parent of a6d9e6e (dd)
     }
+<<<<<<< HEAD
 
 
     private class HttpAsynTask extends AsyncTask<String, Void, String> {
@@ -326,3 +316,6 @@ public class DirectionActivity extends AppCompatActivity {
     }
 
 }
+=======
+}
+>>>>>>> 4116d58c82c86ac8ec60528901e90c8ca4c60217
