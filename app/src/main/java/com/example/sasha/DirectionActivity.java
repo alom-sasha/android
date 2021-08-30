@@ -11,6 +11,8 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -229,14 +231,10 @@ import java.net.URL;
 public class DirectionActivity extends AppCompatActivity {
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direction);
-    }
-}
-
 
 
         //String finding = "스시하쿠비";
@@ -245,12 +243,12 @@ public class DirectionActivity extends AppCompatActivity {
         //String res = apiSearchLocal.getResult();
         //Log.d("ds -> ",res);
 
-        RelativeLayout recommend_origin = (RelativeLayout)findViewById(R.id.recommend_origin);
-        RelativeLayout recommend_destination = (RelativeLayout)findViewById(R.id.recommend_destination);
+        RelativeLayout recommend_origin = (RelativeLayout) findViewById(R.id.recommend_origin);
+        RelativeLayout recommend_destination = (RelativeLayout) findViewById(R.id.recommend_destination);
         recommend_origin.setVisibility(View.INVISIBLE);
         recommend_destination.setVisibility(View.INVISIBLE);
-        EditText edittext_origin = (EditText)findViewById(R.id.edittext_origin);
-        EditText edittext_destination = (EditText)findViewById(R.id.edittext_destination);
+        EditText edittext_origin = (EditText) findViewById(R.id.edittext_origin);
+        EditText edittext_destination = (EditText) findViewById(R.id.edittext_destination);
 
         edittext_origin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,8 +269,6 @@ public class DirectionActivity extends AppCompatActivity {
         });
 
 
-
-
         String result;
 
         String clientId = "Ycu9uF6wApElpe1SNvhr"; //애플리케이션 클라이언트 아이디값"
@@ -280,15 +276,16 @@ public class DirectionActivity extends AppCompatActivity {
         String finding = "잠실";
 
 
-        try{
+        try {
             DirectionActivity.HttpAsynTask task = new DirectionActivity.HttpAsynTask(this);
-            result = (task.execute("https://openapi.naver.com/v1/search/local?display=5&clientId=Ycu9uF6wApElpe1SNvhr&clientSecret=DzL7nW10TE&query="+finding,"clientId",clientId,"clientSecret",clientSecret)
+            result = (task.execute("https://openapi.naver.com/v1/search/local?display=5&clientId=Ycu9uF6wApElpe1SNvhr&clientSecret=DzL7nW10TE&query=" + finding, "clientId", clientId, "clientSecret", clientSecret)
                     .get());
 
-            Log.d("result sl ==> " , result);
-        }catch(Exception e){
+            Log.d("result sl ==> ", result);
+        } catch (Exception e) {
             result = "none";
         }
 
     }
+
 }
