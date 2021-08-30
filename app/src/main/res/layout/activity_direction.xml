@@ -2,11 +2,154 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="direction"
-        android:textSize="30sp"></TextView>
+        <RelativeLayout
+            android:id="@+id/set_origin_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="140dp"
+                android:layout_alignParentLeft="true">
+                <Button
+                    android:id="@+id/cancel_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="X"
+                    android:textSize="40sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true">
+                <EditText
+                    android:id="@+id/edittext_origin"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="35dp"
+                    android:textSize="20sp"
+                    android:background="@color/grey"
+                    android:hint="출발지를 입력하세요..">
+
+                </EditText>
+
+                <EditText
+                    android:id="@+id/edittext_destination"
+                    android:layout_below="@+id/edittext_origin"
+                    android:layout_width="250dp"
+                    android:layout_height="30dp"
+                    android:layout_marginTop="15dp"
+                    android:textSize="20sp"
+                    android:background="@color/grey"
+                    android:hint="도착지를 입력하세요..">
+                </EditText>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="70dp"
+                android:layout_height="140dp"
+                android:layout_alignParentRight="true">
+                <Button
+                    android:id="@+id/start_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text=">"
+                    android:textSize="40sp"/>
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/recommend_origin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_origin_destination">
+            <TextView
+                android:id="@+id/recommend_origin1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="text1"/>
+            <TextView
+                android:id="@+id/recommend_origin2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_origin1"
+                android:textSize="20sp"
+                android:text="text2"/>
+            <TextView
+                android:id="@+id/recommend_origin3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_origin2"
+                android:textSize="20sp"
+                android:text="text1"/>
+            <TextView
+                android:id="@+id/recommend_origin4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_origin3"
+                android:textSize="20sp"
+                android:text="text1"/>
+            <TextView
+                android:id="@+id/recommend_origin5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_origin4"
+                android:textSize="20sp"
+                android:text="text1"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/recommend_destination"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/set_origin_destination">
+            <TextView
+                android:id="@+id/recommend_destination1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:text="text1"/>
+            <TextView
+                android:id="@+id/recommend_destination2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_destination1"
+                android:textSize="20sp"
+                android:text="text2"/>
+            <TextView
+                android:id="@+id/recommend_destination3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_destination2"
+                android:textSize="20sp"
+                android:text="text3"/>
+            <TextView
+                android:id="@+id/recommend_destination4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_destination3"
+                android:textSize="20sp"
+                android:text="text4"/>
+            <TextView
+                android:id="@+id/recommend_destination5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/recommend_destination4"
+                android:textSize="20sp"
+                android:text="text5"/>
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
 </LinearLayout>
