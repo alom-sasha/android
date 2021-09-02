@@ -6,10 +6,15 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PointF;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -29,6 +34,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.LocationSource;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.MapView;
@@ -48,12 +54,18 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
+import static android.widget.Toast.LENGTH_LONG;
 import static com.example.sasha.MainActivity.context;
 
 public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
 
     private static final String TAG = "mapFragment";
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+
+    private NaverMap mNaverMap;
+    private FusedLocationSource mLocationSource;
+
     ArrayList<LatLng> latlngs_light = new ArrayList<>();
 
     ArrayList<Map<String, Object>> light = new ArrayList<>();
@@ -73,14 +85,13 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     ArrayList<Marker> markers_safeguardhouse = new ArrayList<>();
     ArrayList<InfoWindow> info_safeguardhouse = new ArrayList<>();
 
-    ViewGroup activityView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         MainActivity mainActivity = (MainActivity) getActivity();
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_map_page, container, false);
-        activityView=rootView;
 
         Button btn_light_onoff = (Button) rootView.findViewById(R.id.btn_light_onoff);
         btn_light_onoff.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +104,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 } else {
                     for (Marker marker : markers_light) {
-                        marker.setMap(mainActivity.getmNaverMap());
+                        marker.setMap(mNaverMap);
                         mainActivity.check = 0;
                     }
                 }
@@ -111,7 +122,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 } else {
                     for (Marker marker : markers_cctv) {
-                        marker.setMap(mainActivity.getmNaverMap());
+                        marker.setMap(mNaverMap);
                         mainActivity.check1 = 0;
                     }
                 }
@@ -129,7 +140,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 } else {
                     for (Marker marker : markers_policeoffice) {
-                        marker.setMap(mainActivity.getmNaverMap());
+                        marker.setMap(mNaverMap);
                         mainActivity.check2 = 0;
                     }
                 }
@@ -147,7 +158,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 } else {
                     for (Marker marker : markers_safeguardhouse) {
-                        marker.setMap(mainActivity.getmNaverMap());
+                        marker.setMap(mNaverMap);
                         mainActivity.check3 = 0;
                     }
                 }
@@ -165,7 +176,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 } else {
                     for (Marker marker : markers_alarmbell) {
-                        marker.setMap(mainActivity.getmNaverMap());
+                        marker.setMap(mNaverMap);
                         mainActivity.check4 = 0;
                     }
                 }
@@ -177,12 +188,12 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             @Override
             public void onClick(View v) {
                 if (mainActivity.check5 == 0) {
-                    mainActivity.getmNaverMap().setMapType(NaverMap.MapType.Navi);
-                    mainActivity.getmNaverMap().setNightModeEnabled(true);
+                    mNaverMap.setMapType(NaverMap.MapType.Navi);
+                    mNaverMap.setNightModeEnabled(true);
                     mainActivity.check5= 1;
                 } else {
-                    mainActivity.getmNaverMap().setNightModeEnabled(false);
-                    mainActivity.getmNaverMap().setMapType(NaverMap.MapType.Basic);
+                    mNaverMap.setNightModeEnabled(false);
+                    mNaverMap.setMapType(NaverMap.MapType.Basic);
                     mainActivity.check5= 0;
                 }
             }
@@ -216,11 +227,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             fm.beginTransaction().add(R.id.map, mapFragment).commit();
         }
         mapFragment.getMapAsync(this);
-        mainActivity.setmLocationSource(new FusedLocationSource(this, mainActivity.getPermissionRequestCode()));
-
-
-
-
+        mLocationSource=new FusedLocationSource(this, mainActivity.getPermissionRequestCode());
 
         return rootView;
     }
@@ -229,12 +236,21 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
     public void onMapReady(@NonNull NaverMap naverMap) {
         MainActivity mainActivity = (MainActivity) getActivity();
         Log.d(TAG, "OnMapReady");
-        mainActivity.setmNaverMap(naverMap);
-        //Log.d("start db", "db start");
 
-        mainActivity.setmNaverMap(naverMap);
+        mNaverMap=naverMap;
+        mNaverMap.setLocationSource(mLocationSource);
+        ActivityCompat.requestPermissions(mainActivity, mainActivity.getPERMISSIONS(), mainActivity.getPermissionRequestCode());
+        Log.d(TAG, "onMapReady: "+
+                mNaverMap.getContentBounds().toString());
+//        mNaverMap.getLocationSource().activate(new LocationSource.OnLocationChangedListener() {
+//            @Override
+//            public void onLocationChanged(@Nullable Location location) {
+//                Log.d(TAG, "onLocationChanged: "+
+//                        location.toString());
+//            }
+//        });
 
-        //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
+        //light location  //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -265,7 +281,6 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                         }
                     }
                 });
-
 
         //cctv location
         db.collection("cctv")
@@ -360,33 +375,16 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                                 marker.setAnchor(new PointF(1, 1));
                                 markers_policeoffice.add(marker);
 
-                                marker.setOnClickListener(new Overlay.OnClickListener() {
+                                InfoWindow infoWindow = new InfoWindow();
+                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+                                    @NonNull
                                     @Override
-                                    public boolean onClick(@NonNull Overlay overlay) {
-
-                                        //debugging...
-                                        Toast.makeText(mainActivity, "marker clicked.", Toast.LENGTH_SHORT).show();
-
-                                        //edited
-                                        ViewGroup rootView = activityView;
-                                        pointAdapter adapter = new pointAdapter( activityView.getContext(), activityView);
-
-                                        InfoWindow infoWindow = new InfoWindow();
-                                        infoWindow.setAdapter(adapter);
-                                        infoWindow.setPosition(new LatLng(latitude, longitude));
-                                        info_policeoffice.add(infoWindow);
-                                        //인포창의 우선순위
-                                        infoWindow.setZIndex(10);
-                                        //인포창 표시
-                                        infoWindow.open(marker);
-
-                                        return false;
+                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
+                                        return "address : " + address + "\n" + "name : " + name + "\n" + "belong : " + belong;
                                     }
                                 });
-
-//commit
-
-
+                                infoWindow.setPosition(new LatLng(latitude, longitude));
+                                info_policeoffice.add(infoWindow);
                             }
                         } else {
                             Log.w(TAG, "Error getting documents.", task.getException());
@@ -430,17 +428,17 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                                 marker.setIcon(OverlayImage.fromResource(R.drawable.ic_map_safehouse_24));
                                 markers_safeguardhouse.add(marker);
 
-//                                InfoWindow infoWindow = new InfoWindow();
-//                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
-//                                    @NonNull
-//                                    @Override
-//                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
-//                                        return "address_lot : " + address_lot + "\n" + "address_street : " + address_street + "\n"+ "name : " + name + "\n" + "phone_number : " + phone_number;
-//                                    }
-//                                });
-//                                infoWindow.setPosition(new LatLng(latitude, longitude));
-//                                //infoWindow.open(marker);
-//                                info_safeguardhouse.add(infoWindow);
+                                InfoWindow infoWindow = new InfoWindow();
+                                infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(context) {
+                                    @NonNull
+                                    @Override
+                                    public CharSequence getText(@NonNull InfoWindow infoWindow) {
+                                        return "address_lot : " + address_lot + "\n" + "address_street : " + address_street + "\n"+ "name : " + name + "\n" + "phone_number : " + phone_number;
+                                    }
+                                });
+                                infoWindow.setPosition(new LatLng(latitude, longitude));
+                                //infoWindow.open(marker);
+                                info_safeguardhouse.add(infoWindow);
 
                             }
                         } else {
@@ -456,86 +454,27 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
                     }
                 });
 
-
-
         PathOverlay path = new PathOverlay();
         path.setCoords(mainActivity.result_latlng);
         path.setMap(naverMap);
-
-
-
-//        mNavermap.setOnMapClickListener((coord, point) -> {
-//            for(InfoWindow info : info_safeguardhouse){
-//                info.close();
-//            }
-//        });
-//
-//
-//        Iterator it_police = markers_policeoffice.iterator();
-//        Iterator it_info_police = info_policeoffice.iterator();
-//        while(it_police.hasNext() && it_info_police.hasNext()){
-//            Marker markers = (Marker) it_police.next();
-//            InfoWindow infoWindow = (InfoWindow) it_info_police.next();
-//
-//            Overlay.OnClickListener listener = overlay -> {
-//                Marker marker = (Marker)overlay;
-//
-//                if (marker.getInfoWindow() == null) {
-//                    // 현재 마커에 정보 창이 열려있지 않을 경우 엶
-//                    infoWindow.open(marker);
-//                } else {
-//                    // 이미 현재 마커에 정보 창이 열려있을 경우 닫음
-//                    infoWindow.close();
-//                }
-//                return true;
-//            };
-//
-//
-//            markers.setOnClickListener(listener);
-//        }
-
-
-
-
-//
-//        Overlay.OnClickListener listener = overlay -> {
-//            Marker marker = (Marker)overlay;
-//
-//            if( marker.getInfoWindow() == null ){
-//                infoWindow.open(marker);
-//            }else{
-//                infoWindow.close();
-//            }
-//            return true;
-//        };
-//
-
-        //현재 위치 추적
-        mainActivity.getmNaverMap().setLocationSource(mainActivity.getmLocationSource());
-        ActivityCompat.requestPermissions(mainActivity, mainActivity.getPERMISSIONS(), mainActivity.getPermissionRequestCode());
-
-        //UI Setting
-        UiSettings uiSettings = mainActivity.getmNaverMap().getUiSettings();
-        uiSettings.setCompassEnabled(true);
-        //uiSettings.setIndoorLevelPickerEnabled(true);
-        uiSettings.setLocationButtonEnabled(true);
-        mainActivity.getmNaverMap().setLocationTrackingMode(LocationTrackingMode.Follow);
-
-//        // 위치 변경 이벤트
-//        mNaverMap.addOnLocationChangeListener(location ->
-//                Toast.makeText(this,
-//                        location.getLatitude() + ", " + location.getLongitude(),
-//                        Toast.LENGTH_SHORT).show());
-
     }
     @Override // 지도
+    //한슬님한테 한슬님 avd나 폰에서는 현위치 마커기능 잘 작동하는지 물어보기. 지금 onRequestPermissionsResult가 아예 호출되지 않는 것 같음.
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         MainActivity mainActivity = (MainActivity) getActivity();
+        Log.d(TAG, "onRequestPermissionsResult: "+
+                mainActivity.getPermissionRequestCode()+" , "+
+                grantResults.toString());
         if (requestCode == mainActivity.getPermissionRequestCode()) {
             if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                mainActivity.getmNaverMap().setLocationTrackingMode(LocationTrackingMode.Follow);
+                mNaverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+//                mNaverMap.addOnLocationChangeListener(location ->
+//                        Toast.makeText(mainActivity,
+//                                location.getLatitude() + ", " + location.getLongitude(),
+//                                Toast.LENGTH_LONG).show());
             }
         }
     }

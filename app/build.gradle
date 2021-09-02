@@ -82,4 +82,9 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    //google gps
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    //work manager
+    implementation "androidx.work:work-runtime-ktx:2.1.0"
 }
