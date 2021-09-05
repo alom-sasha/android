@@ -509,15 +509,10 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         uiSettings.setLocationButtonEnabled(true);
         mainActivity.getmNaverMap().setLocationTrackingMode(LocationTrackingMode.Follow);
 
-//        // 위치 변경 이벤트
-//        mNaverMap.addOnLocationChangeListener(location ->
-//                Toast.makeText(this,
-//                        location.getLatitude() + ", " + location.getLongitude(),
-//                        Toast.LENGTH_SHORT).show());
-
+        // 위치 변경 이벤트
         mainActivity.getmNaverMap().addOnLocationChangeListener(location ->
-                Toast.makeText(mainActivity,
-                        location.getLatitude() + ", " + location.getLongitude(),
+                Toast.makeText(mainActivity.getApplicationContext(),
+                        location.getLatitude() + " <-> " + location.getLongitude(),
                         Toast.LENGTH_SHORT).show());
 
 
