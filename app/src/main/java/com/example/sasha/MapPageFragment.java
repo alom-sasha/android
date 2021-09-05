@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -214,9 +215,6 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         }
         mapFragment.getMapAsync(this);
         mainActivity.setmLocationSource(new FusedLocationSource(this, mainActivity.getPermissionRequestCode()));
-
-
-
 
 
         return rootView;
@@ -494,6 +492,7 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         mainActivity.getmNaverMap().setLocationSource(mainActivity.getmLocationSource());
         ActivityCompat.requestPermissions(mainActivity, mainActivity.getPERMISSIONS(), mainActivity.getPermissionRequestCode());
 
+
         //UI Setting
         UiSettings uiSettings = mainActivity.getmNaverMap().getUiSettings();
         uiSettings.setCompassEnabled(true);
@@ -501,11 +500,18 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         uiSettings.setLocationButtonEnabled(true);
         mainActivity.getmNaverMap().setLocationTrackingMode(LocationTrackingMode.Follow);
 
-//        // 위치 변경 이벤트
-//        mNaverMap.addOnLocationChangeListener(location ->
-//                Toast.makeText(this,
-//                        location.getLatitude() + ", " + location.getLongitude(),
-//                        Toast.LENGTH_SHORT).show());
+        // 위치 변경 이벤트
+        mainActivity.getmNaverMap().addOnLocationChangeListener(location ->
+                Toast.makeText(mainActivity.getApplicationContext(),
+                        location.getLatitude() + " <-> " + location.getLongitude(),
+                        Toast.LENGTH_SHORT).show());
+
+
+
+//        double latitude1 = mainActivity.getmLocationSource().getLastLocation().getLatitude();
+//        double longitude1 = mainActivity.getmLocationSource().getLastLocation().getLongitude();
+//
+//        Toast.makeText(mainActivity.getApplicationContext(), longitude1 + " " + latitude1 + " " , Toast.LENGTH_LONG).show();
 
     }
     @Override // 지도
