@@ -82,4 +82,9 @@ dependencies {
 
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // (workManager - Java only)
+    implementation"androidx.work:work-runtime:2.5.0"
+
+
 }

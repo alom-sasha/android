@@ -13,6 +13,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Color;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -24,6 +25,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 import android.widget.EditText;
 
+import com.example.sasha.work.LogWorker;
+import com.example.sasha.work.MyWorker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +59,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -72,6 +79,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static android.content.ContentValues.TAG;
 
@@ -81,6 +89,7 @@ import static android.content.ContentValues.TAG;
 
 public class MainActivity extends AppCompatActivity{
     private BottomNavigationView mBottomNV;
+
     public static Context context;
 
     private static final String TAG = "map";
@@ -112,7 +121,6 @@ public class MainActivity extends AppCompatActivity{
         mBottomNV.setSelectedItemId(R.id.ic_map);
 
         context = this;
-
         String key = "pk.eyJ1IjoiaGFpc2VvbmciLCJhIjoiY2tyZjgxN3Y3MHZxazJvdDc3aHY5d2VzbiJ9.OX59hcCGUPl-ipdu1nfzdQ";
         LatLng origin = new LatLng(37.516260,127.131193);
         LatLng destination = new LatLng(37.510166,127.132372);
@@ -142,6 +150,13 @@ public class MainActivity extends AppCompatActivity{
 
         Log.d("arraylist", result_latlng.toString());
 
+//        PeriodicWorkRequest uploadWorkRequest=new PeriodicWorkRequest.Builder(LogWorker.class,15, TimeUnit.MINUTES).build();
+//        WorkManager.getInstance(context).enqueue(uploadWorkRequest);
+
+        PeriodicWorkRequest periodicWork = new PeriodicWorkRequest.Builder(MyWorker.class, 15, TimeUnit.MINUTES)
+                .addTag(TAG)
+                .build();
+        WorkManager.getInstance().enqueueUniquePeriodicWork("Location", ExistingPeriodicWorkPolicy.REPLACE, periodicWork);
     }
 
     public static class Path{
@@ -297,5 +312,9 @@ public class MainActivity extends AppCompatActivity{
 
     public static String[] getPERMISSIONS() {
         return PERMISSIONS;
+    }
+
+    public static Context getAppContext() {
+        return context;
     }
 }

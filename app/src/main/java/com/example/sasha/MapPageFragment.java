@@ -18,6 +18,8 @@ import androidx.core.content.PermissionChecker;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.sasha.work.LogWorker;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.common.collect.ArrayListMultimap;
@@ -53,6 +56,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.sasha.MainActivity.context;
 
@@ -510,13 +514,10 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         mainActivity.getmNaverMap().setLocationTrackingMode(LocationTrackingMode.Follow);
 
         // 위치 변경 이벤트
-        mainActivity.getmNaverMap().addOnLocationChangeListener(location ->
-                Toast.makeText(mainActivity.getApplicationContext(),
-                        location.getLatitude() + " <-> " + location.getLongitude(),
-                        Toast.LENGTH_SHORT).show());
-
-
-
+//        mainActivity.getmNaverMap().addOnLocationChangeListener(location ->
+//                Toast.makeText(mainActivity.getApplicationContext(),
+//                        location.getLatitude() + " <-> " + location.getLongitude(),
+//                        Toast.LENGTH_SHORT).show());
     }
     @Override // 지도
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
