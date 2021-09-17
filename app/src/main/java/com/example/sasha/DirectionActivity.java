@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import android.content.Intent;
 import android.graphics.Picture;
 import android.graphics.Point;
 import android.os.AsyncTask;
@@ -60,6 +61,16 @@ public class DirectionActivity extends AppCompatActivity {
             TextView text = findViewById(R.id.recommend_destination + (i + 1));
             text.setText("");
         }
+
+        Button cancel_button = findViewById(R.id.cancel_button);
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);//액티비티 스택제거
+                finish();
+            }
+        });
 
         Button start_button = findViewById(R.id.start_button);
         start_button.setOnClickListener(new View.OnClickListener() {
