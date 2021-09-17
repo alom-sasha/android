@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.naver.maps.map.NaverMap;
 
@@ -35,11 +36,11 @@ public class DirectionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_direction);
 
         final Boolean[] isOriginSelected = {false};
-        final Boolean isDestinationSelected = false;
+        final Boolean[] isDestinationSelected = {false};
 
-         ArrayList<Point> recommend_origin_list = new ArrayList<Point>();
 
         final Point[] selected_orign = {new Point()};
+        final Point[] selected_destination = {new Point()};
 
 
         RelativeLayout recommend_origin = (RelativeLayout) findViewById(R.id.recommend_origin);
@@ -67,8 +68,52 @@ public class DirectionActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     isOriginSelected[0] = true;
                     edittext_origin.setText(text.getText());
-                    selected_orign[0] = recommend_origin_list.get(finalI);
+                    String apiResult = searchAPI(edittext_origin.getText().toString());
+                    JSONArray jsonArray;
+                    try {
+                        jsonArray = new JSONArray(apiResult);
+                        String str = jsonArray.opt(0).toString();
+                        JSONObject jsonObject = new JSONObject(str);
+                        Point p = new Point(jsonObject.getInt("mapx"),jsonObject.getInt("mapy"));
+                        selected_orign[0] = p;
+                        Log.d("test",selected_orign[0].toString());
+                        Log.d("test",text.getText().toString());
+                        Toast.makeText(getApplicationContext(), "출발지가 "+text.getText().toString()+" 으로 설정되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+
+            });
+        }
+
+        for (int i=0; i<5;i++){
+            TextView text = findViewById(R.id.recommend_destination + (i + 1));
+            int finalI = i;
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isDestinationSelected[0] = true;
+                    edittext_destination.setText(text.getText());
+                    String apiResult = searchAPI(edittext_destination.getText().toString());
+                    JSONArray jsonArray;
+                    try {
+                        jsonArray = new JSONArray(apiResult);
+                        String str = jsonArray.opt(0).toString();
+                        JSONObject jsonObject = new JSONObject(str);
+                        Point p = new Point(jsonObject.getInt("mapx"),jsonObject.getInt("mapy"));
+                        selected_destination[0] = p;
+                        Log.d("test",selected_destination[0].toString());
+                        Toast.makeText(getApplicationContext(), "도착지가 "+text.getText().toString()+" 으로 설정되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
             });
         }
 
@@ -82,7 +127,7 @@ public class DirectionActivity extends AppCompatActivity {
                 }
 
                 if(edittext_origin.getText().toString().length() != 0){
-                    recommend_origin_list.clear();
+                    //recommend_origin_list[0] = null;
                     String apiResult = searchAPI(edittext_origin.getText().toString());
                     Log.d("test444", apiResult);
                     JSONArray jsonArray;
@@ -96,7 +141,7 @@ public class DirectionActivity extends AppCompatActivity {
                             str = str.replace("</b>","");
                             str = str.replace("amp;","");
                             Point p = new Point(jsonObject.getInt("mapx"),jsonObject.getInt("mapy"));
-                            // recommend_origin_list.set(i, p); 이부분 오
+                            //recommend_origin_list[0][i] = p;
 
                             text.setText(str);
                             Log.d("test",str);
