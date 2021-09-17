@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import android.graphics.Picture;
+import android.graphics.Point;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,10 +16,13 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.naver.maps.map.NaverMap;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 import java.util.function.LongFunction;
 
@@ -28,6 +33,13 @@ public class DirectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_direction);
+
+        final Boolean[] isOriginSelected = {false};
+        final Boolean isDestinationSelected = false;
+
+         ArrayList<Point> recommend_origin_list = new ArrayList<Point>();
+
+        final Point[] selected_orign = {new Point()};
 
 
         RelativeLayout recommend_origin = (RelativeLayout) findViewById(R.id.recommend_origin);
@@ -47,6 +59,18 @@ public class DirectionActivity extends AppCompatActivity {
             text.setText("");
         }
 
+        for (int i=0; i<5;i++){
+            TextView text = findViewById(R.id.recommend_origin + (i + 1));
+            int finalI = i;
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    isOriginSelected[0] = true;
+                    edittext_origin.setText(text.getText());
+                    selected_orign[0] = recommend_origin_list.get(finalI);
+                }
+            });
+        }
 
         edittext_origin.addTextChangedListener(new TextWatcher() {
             @Override
@@ -58,6 +82,7 @@ public class DirectionActivity extends AppCompatActivity {
                 }
 
                 if(edittext_origin.getText().toString().length() != 0){
+                    recommend_origin_list.clear();
                     String apiResult = searchAPI(edittext_origin.getText().toString());
                     Log.d("test444", apiResult);
                     JSONArray jsonArray;
@@ -70,8 +95,11 @@ public class DirectionActivity extends AppCompatActivity {
                             str = jsonObject.getString("title").replace("<b>","");
                             str = str.replace("</b>","");
                             str = str.replace("amp;","");
+                            Point p = new Point(jsonObject.getInt("mapx"),jsonObject.getInt("mapy"));
+                            // recommend_origin_list.set(i, p); 이부분 오
 
                             text.setText(str);
+                            Log.d("test",str);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -159,7 +187,9 @@ public class DirectionActivity extends AppCompatActivity {
             }
         });
 
+
     }
+
 
     public String searchAPI(String finding){
         NaverSearchTask naverSearchTask = new NaverSearchTask();
