@@ -12,6 +12,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -60,6 +61,19 @@ public class DirectionActivity extends AppCompatActivity {
             text.setText("");
         }
 
+        Button start_button = findViewById(R.id.start_button);
+        start_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isOriginSelected[0] == true && isDestinationSelected[0] == true){
+                    // 출발지와 목적지가 둘다 설정되었을 때
+                    Toast.makeText(getApplicationContext(),selected_orign[0].toString() + " ~ " + selected_orign[0].toString(),Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(getApplicationContext(),"출발지 또 목적지를 설정해주세요.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
         for (int i=0; i<5;i++){
             TextView text = findViewById(R.id.recommend_origin + (i + 1));
             int finalI = i;
@@ -84,8 +98,6 @@ public class DirectionActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
-
             });
         }
 
@@ -112,8 +124,6 @@ public class DirectionActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
-
-
             });
         }
 
