@@ -203,12 +203,13 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             }
         });
 
-        EditText edittext_destination = (EditText) rootView.findViewById(R.id.edittext_destination);
-        edittext_destination.setOnClickListener(new View.OnClickListener() {
+        EditText edittext_destination_on_mapfragment = (EditText) rootView.findViewById(R.id.edittext_destination_on_mapfragment);
+        edittext_destination_on_mapfragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                SetOriginDestinationFregment fragment = new SetOriginDestinationFregment();
+                Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionActivity.class);
+                intent.putExtra("focus",true);
+                startActivity(intent);
             }
         });
 

@@ -76,7 +76,7 @@ public class DirectionActivity extends AppCompatActivity {
         start_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isOriginSelected[0] == true && isDestinationSelected[0] == true){
+                if(isOriginSelected[0] && isDestinationSelected[0]){ // isOriginSelected[0] == true && isDestinationSelected[0] == true
                     // 출발지와 목적지가 둘다 설정되었을 때
                     Toast.makeText(getApplicationContext(),selected_orign[0].toString() + " ~ " + selected_orign[0].toString(),Toast.LENGTH_SHORT).show();
                 }else{
