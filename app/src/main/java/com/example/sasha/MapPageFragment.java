@@ -240,7 +240,8 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
 
         mainActivity.setmNaverMap(naverMap);
 
-        //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
+        //light location
+        // Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
