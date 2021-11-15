@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.sasha">
-<<<<<<< Updated upstream
-    <!-- 인터넷, 위치 권한 -->
-=======
 
->>>>>>> Stashed changes
+    <!-- 인터넷, 위치 권한 -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_app_logo"
@@ -14,11 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Sasha"
         android:usesCleartextTraffic="true">
-<<<<<<< Updated upstream
+
         <activity android:name=".DirectionActivity"></activity>
-=======
+
         <activity android:name=".DirectionsActivity"></activity>
->>>>>>> Stashed changes
+
         <activity android:name=".LoginActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
@@ -31,22 +28,21 @@
             android:name="com.naver.maps.map.CLIENT_ID"
             android:value="iefo6x2oyz" />
     </application>
-<<<<<<< Updated upstream
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-=======
->>>>>>> Stashed changes
+
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-<<<<<<< Updated upstream
+
 
     <uses-permission android:name="android.permission.INTERNET" />
-=======
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
->>>>>>> Stashed changes
+
 
 </manifest>

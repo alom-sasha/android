@@ -199,11 +199,8 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
         btn_direction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-<<<<<<< Updated upstream
+
                 Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionActivity.class);
-=======
-                Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionsActivity.class);
->>>>>>> Stashed changes
                 startActivity(intent);
             }
         });
