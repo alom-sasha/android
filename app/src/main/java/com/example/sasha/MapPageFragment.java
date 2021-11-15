@@ -200,7 +200,6 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             @Override
             public void onClick(View view) {
 
-
                 Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionActivity.class);
                 startActivity(intent);
             }
