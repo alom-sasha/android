@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity{
     private NaverMap mNaverMap;
     private FusedLocationSource mLocationSource;
 
+
     int check = 0, check1 = 0, check2 = 0, check3= 0, check4 = 0, check5 = 0;
     ArrayList<LatLng> result_latlng = new ArrayList<>();
     @Override

@@ -67,10 +67,18 @@
             android:layout_below="@+id/btn_mode_onoff"
             android:text="login"
             android:textSize="10dp" />
+
+        <Button
+            android:id="@+id/btn_direction"
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btn_login"
+            android:text="direction"
+            android:textSize="10dp" />
     </RelativeLayout>
 
     <EditText
-        android:id="@+id/edittext_destination"
+        android:id="@+id/edittext_destination_on_mapfragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"

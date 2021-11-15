@@ -195,13 +195,23 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
             }
         });
 
+        Button btn_direction=(Button)rootView.findViewById(R.id.btn_direction);
+        btn_direction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        EditText edittext_destination = (EditText) rootView.findViewById(R.id.edittext_destination);
-        edittext_destination.setOnClickListener(new View.OnClickListener() {
+                Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        EditText edittext_destination_on_mapfragment = (EditText) rootView.findViewById(R.id.edittext_destination_on_mapfragment);
+        edittext_destination_on_mapfragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                SetOriginDestinationFregment fragment = new SetOriginDestinationFregment();
+                Intent intent = new Intent(mainActivity.getApplicationContext(), DirectionActivity.class);
+                intent.putExtra("focus",true);
+                startActivity(intent);
             }
         });
 
@@ -229,7 +239,8 @@ public class MapPageFragment extends Fragment  implements OnMapReadyCallback{
 
         mainActivity.setmNaverMap(naverMap);
 
-        //light location                                 //Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
+        //light location
+        // Log.d(TAG, document.getId() + " => " + latitude + "   " + longitude + " " + String.valueOf(latlngs_light.size()));
         db.collection("light")
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
