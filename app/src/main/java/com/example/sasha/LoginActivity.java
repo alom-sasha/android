@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.SpannableString;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,6 +21,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -57,6 +59,15 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 System.out.println("google login button clicked.");
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
+
+        Button facebook = (Button)findViewById(R.id.facebook_login);
+        facebook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), OssLicensesMenuActivity.class);
+                startActivity(intent);
             }
         });
     }
